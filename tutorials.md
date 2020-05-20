@@ -1,5 +1,7 @@
 
 
+
+
 ##About CORACLE
 
 **CORACLE** (**CO**VID-19 lite**RA**ture **C**ompi**LE**r): A platform for efficient tracking and extraction of pertinent clinical and mechanistic insight from the growing avalanche of literature related to SARS-CoV-2 virus and COVID-19 disease.
@@ -20,30 +22,33 @@ https://youtu.be/KGrZAJkhmjc
 
 
 
-| Part 1 - How to Search CORACLE | Part 2 - How to understand CORACLE's outputs - STATISTICS | Part 3 - How to run CORACLE Desktop |
-| ------------------------------ | --------------------------------------------------------- | ----------------------------------- |
-|                                | **STATISTICS panel**                                      | 27. Download                        |
-| 1. Introduction                | 9. STATISTICS - Summary                                   | 28. Installation                    |
-| 2. Publication Dates           | 10. Publication Trend                                     | 29. Run **CORACLE Desktop**         |
-| 3. Publication Types           | 11. MeSH Trend                                            |                                     |
-| 4. Journals                    | 12. Country Trend                                         |                                     |
-| 5. Countries                   | 13. Language Trend                                        |                                     |
-| 6. Languages                   | 14. Journal Trend                                         |                                     |
-| 7. MeSH/Keywords               | 15. Popular Publications                                  |                                     |
-| 8. Customised PMID             | **CITATION MAP panel**                                    |                                     |
-|                                | 16. CITATION MAP - Summary                                |                                     |
-|                                | 17. Central Publications                                  |                                     |
-|                                | 18. Degree Distribution                                   |                                     |
-|                                | 19. Hubs in Citation Map                                  |                                     |
-|                                | **SIMILARITY CITATION NETWORK panel**                     |                                     |
-|                                | 20. Summary                                               |                                     |
-|                                | 21. Distribution of Shared Citations                      |                                     |
-|                                | 22. Degree Distribution                                   |                                     |
-|                                | 23. Hubs                                                  |                                     |
-|                                | **MeSH Map panel**                                        |                                     |
-|                                | 24. MeSH Map - Summary                                    |                                     |
-|                                | 25. Distribution of Shared Citations                      |                                     |
-|                                | 26. Hubs                                                  |                                     |
+| Part 1 - How to Search CORACLE | Part 2 - How to understand CORACLE's outputs | Part 3 - How to run CORACLE Desktop |
+| :----------------------------- | :------------------------------------------- | :---------------------------------- |
+| 1. Introduction                | **STATISTICS panel**                         | 30. Download                        |
+| 2. Publication Dates           | 9. STATISTICS - Summary                      | 31. Installation                    |
+| 3. Publication Types           | 10. Publication Trend                        | 32. Run **CORACLE Desktop**         |
+| 4. Journals                    | 11. MeSH Trend                               |                                     |
+| 5. Countries                   | 12. Country Trend                            |                                     |
+| 6. Languages                   | 13. Language Trend                           |                                     |
+| 7. MeSH/Keywords               | 14. Journal Trend                            |                                     |
+| 8. Customised PMID             | 15. Popular Publications                     |                                     |
+|                                | **CITATION MAP panel**                       |                                     |
+|                                | 16. CITATION MAP - Summary                   |                                     |
+|                                | 17. Central Publications                     |                                     |
+|                                | 18. Degree Distribution                      |                                     |
+|                                | 19. Hubs in Citation Map                     |                                     |
+|                                | 20. Visulization of Citation Map             |                                     |
+|                                | **SIMILARITY CITATION NETWORK panel**        |                                     |
+|                                | 21. Summary                                  |                                     |
+|                                | 22. Distribution of Shared Citations         |                                     |
+|                                | 23. Degree Distribution                      |                                     |
+|                                | 24. Hubs                                     |                                     |
+|                                | 25. Visulization of Network                  |                                     |
+|                                | **MeSH Map panel**                           |                                     |
+|                                | 26. MeSH Map - Summary                       |                                     |
+|                                | 27. Distribution of Shared Citations         |                                     |
+|                                | 28. Hubs                                     |                                     |
+|                                | 29. Visulization of MeSH Map                 |                                     |
 
 
 
