@@ -1,6 +1,6 @@
 
 
-
+#  
 
 ##About CORACLE
 
@@ -15,8 +15,6 @@ Preprint version @[**BioRxiv**]()
 ### How to Start CORACLE tutorial
 
 The How to Start **CORACLE** video series will take you from **General Search** to **Customized Search**, as well as **CORACLE Desktop**. Watch the complete tutorial, or jump to a specific chapter by clicking a link below. The entire tutorial is XX minutes long. Download the slides and exercises [here](https://github.com/clisweden/coracle_shiny/tree/master/tutorials).
-
-https://youtu.be/KGrZAJkhmjc
 
 [<img src="https://img.youtube.com/vi/KGrZAJkhmjc/hqdefault.jpg" width="50%">](https://youtu.be/KGrZAJkhmjc)
 
@@ -44,7 +42,7 @@ https://youtu.be/KGrZAJkhmjc
 |                                | 23. Degree Distribution                      |                                     |
 |                                | 24. Hubs                                     |                                     |
 |                                | 25. Visulization of Network                  |                                     |
-|                                | **MeSH Map panel**                           |                                     |
+|                                | **MeSH MAP panel**                           |                                     |
 |                                | 26. MeSH Map - Summary                       |                                     |
 |                                | 27. Distribution of Shared Citations         |                                     |
 |                                | 28. Hubs                                     |                                     |
