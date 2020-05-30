@@ -604,6 +604,7 @@ shinyServer(function(input, output, session) {
       k2 <-
         subset(k.edges, from %in% pmid.show |
                  to %in% pmid.show)
+      k2 <- data.frame(k2) %>% .[1:min(1000, nrow(k2)), ]
       net.ids <- base::union(k2[, 1], k2[, 2])
       
       k.nodes <-
@@ -632,7 +633,7 @@ shinyServer(function(input, output, session) {
           '</a>',
           sep = ""
         )
-      k2 <- data.frame(k2) %>% .[1:min(1000, nrow(k2)), ]
+      
       fig <- visNetwork(nodes = k.nodes, edges = k2) %>%
         visOptions(highlightNearest = list(enabled = TRUE, hover = TRUE)) %>%
         visLayout(randomSeed = 123) %>%
@@ -700,6 +701,7 @@ shinyServer(function(input, output, session) {
       k2 <-
         subset(k.edges, from %in% pmid.show |
                  to %in% pmid.show)
+      k2 <- data.frame(k2) %>% .[1:min(1000, nrow(k2)), ]
       net.ids <- base::union(k2[, 1], k2[, 2])
       
       k.nodes <-
@@ -729,7 +731,7 @@ shinyServer(function(input, output, session) {
           sep = ""
         )
       k2$title <- paste0("Shared Citation:", k2$weight)
-      k2 <- data.frame(k2) %>% .[1:min(1000, nrow(k2)), ]
+      
       visNetwork(nodes = k.nodes, edges = k2) %>%
         visOptions(highlightNearest = list(enabled = TRUE, hover = TRUE)) %>%
         visLayout(randomSeed = 123) %>%
@@ -966,7 +968,7 @@ shinyServer(function(input, output, session) {
       k2 <-
         subset(k.edges, from %in% mesh.show |
                  to %in% mesh.show)
-      
+      k2 <- data.frame(k2) %>% .[1:min(1000, nrow(k2)), ]
       net.ids <- base::union(k2[, 1], k2[, 2])
       
       k.nodes <-
