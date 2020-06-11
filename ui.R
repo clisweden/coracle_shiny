@@ -29,9 +29,9 @@ header <- dashboardHeader(
   ),
   tags$li(
     a(
-      strong("About"),
+      strong("Desktop Code"),
       height = 40,
-      href = "https://github.com/clisweden/coracle_about",
+      href = "https://github.com/clisweden/coracle_shiny",
       title = "",
       target = "_blank"
     ),
@@ -87,7 +87,7 @@ sidebar <- dashboardSidebar(
     inputId = "country",
     label = "Country",
     choices = raw.country.all,
-    selected = sort(c("China", "United States", "United Kingdom")),
+    selected = raw.country.all,
     multiple = TRUE,
     options = pickerOptions(
       actionsBox = TRUE,
@@ -182,7 +182,15 @@ body <- dashboardBody(tabsetPanel(
         solidHeader = TRUE,
         collapsible = TRUE,
         width = 6,
-        plotlyOutput("pub.count.new") %>% withSpinner()
+        tabsetPanel(
+          tabPanel(
+            "Daily New Publications",
+        plotOutput("pub.count.new") %>% withSpinner()),
+        tabPanel(
+          "Cumulated Publications",
+          plotOutput("pub.count.all") %>% withSpinner()
+        )
+        )
       ),
       shinydashboard::box(
         title = "MeSH Key Words Trend",
@@ -268,60 +276,82 @@ body <- dashboardBody(tabsetPanel(
     fluidPage(
       fluidRow(
         shinydashboard::box(
-          title = "Summary of Selected Citation Map",
-          width = 4,
+          title = "Summary of Filtered Citation Map",
+          width = 3,
+          #status = "danger",
+          solidHeader = TRUE,
+          collapsible = TRUE,
           fluidRow(
-            shinydashboard::valueBoxOutput("cnetBox2", width = 6),
-            shinydashboard::valueBoxOutput("cnetBox3", width = 6)
-          ),
-          tags$br(),
-          tags$br(),
-          
+            shinydashboard::valueBoxOutput("cnetBox2", width = 12),
+            shinydashboard::valueBoxOutput("cnetBox3", width = 12)
+          )
+        ),
+        shinydashboard::box(
+          title = "Hubs in Citation Map",
+          status = "info",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          width = 9,
+          DT::dataTableOutput('tableCnet') %>% withSpinner()
+        )
+      ),
+      fluidRow(
+        shinydashboard::box(
+          width = 6,
+          status = "success",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          title = "Central Publications",
+          plotlyOutput("cnet.top") %>% withSpinner()
+        ),
+        shinydashboard::box(
+          width = 6,
+          status = "warning",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          title = "Degree Distribution",
+          plotlyOutput("cnet.dis") %>% withSpinner()
+        )
+      ),
+      
+      tags$br(),
+      fluidRow(
+        shinydashboard::box(
+          width = 2,
+          status = "warning",
+          solidHeader = TRUE,
           selectInput(
             inputId = "cnet.show",
             selected = NULL,
             multiple = T,
-            label = "Input PMID",
+            label = h4("Input target PMID for Visulization"),
             choices = NULL
           ),
-          
+          tags$p("!Notice: This can't be null. Push the 'START/UPDATE' button if it's null."),
+          div(
+            id = "cnetButton",
+            bsButton(
+              inputId = "cnetButton",
+              label = "Visualize Citation Map",
+              icon = icon("eye"),
+              style = "danger"
+            )
+          ),
+          tags$br(),
+          downloadLink("cnet.download", "        Download Full Map"),
           tags$br(),
           tags$br(),
-          actionButton("cnetButton", "Visualize Citation Map", icon =
-                         icon("eye")),
-          downloadLink("cnet.download", "        Download Full Map")
-          
+          div(img(
+            src = "legends.png",
+            #height = 200,
+            width = 100
+          ))
         ),
         shinydashboard::box(
-          title = "Toplogical Features",
-          width = 6,
-          tabsetPanel(
-            tabPanel(
-              "Central Publications",
-              plotlyOutput("cnet.top") %>% withSpinner()
-            ),
-            tabPanel(
-              "Degree Distribution",
-              plotlyOutput("cnet.dis") %>% withSpinner()
-            ),
-            tabPanel(
-              title = "Hubs in Citation Map",
-              status = "info",
-              solidHeader = TRUE,
-              collapsible = TRUE,
-              width = 12,
-              DT::dataTableOutput('tableCnet') %>% withSpinner()
-              
-            )
-          )
-          
-        )
-      ),
-      tags$br(),
-      fluidRow(
-        shinydashboard::box(
-          width = 12,
+          width = 10,
           status = "primary",
+          solidHeader = TRUE,
+          collapsible = TRUE,
           visNetworkOutput("cnet.result", width = "100%", height = "1080px") %>% withSpinner()
         )
       )
@@ -329,121 +359,168 @@ body <- dashboardBody(tabsetPanel(
   ),
   
   tabPanel(
-    "Similarity Citation Network",
+    title = "Similarity Citation Network",
     icon = icon("arrows-alt"),
-    fluidRow(
-      shinydashboard::box(
-        title = "Summary of Selected Citation Map",
-        width = 4,
-        fluidRow(
-          shinydashboard::valueBoxOutput("snetBox2", width = 6),
-          shinydashboard::valueBoxOutput("snetBox3", width = 6)
-        ),
-        tags$br(),
-        tags$br(),
-        selectInput(
-          inputId = "snet.show",
-          selected = NULL,
-          multiple = T,
-          label = "Input PMID",
-          choices = NULL
-        ),
-        
-        tags$br(),
-        tags$br(),
-        actionButton("snetButton", "Visualize Similarity Network", icon =
-                       icon("eye")),
-        downloadLink("snet.download", "        Download Full Map")
-        #actionButton("cnet.download", "Download Full Map", icon = icon("save"))
-      ),
-      shinydashboard::box(
-        title = "Toplogical Features",
-        width = 6,
-        tabsetPanel(
-          tabPanel(
-            "Distribution of Shared Citations (edge weights)",
-            plotlyOutput("snet.top") %>% withSpinner()
-          ),
-          tabPanel(
-            "Degree Distribution",
-            plotlyOutput("snet.dis") %>% withSpinner()
-          ),
-          tabPanel(
-            title = "Hubs in Similarity Citation Net",
-            status = "info",
-            solidHeader = TRUE,
-            collapsible = TRUE,
-            width = 12,
-            DT::dataTableOutput('tableSnet') %>% withSpinner()
-            
+    fluidPage(
+      fluidRow(
+        shinydashboard::box(
+          title = "Summary of Selected Citation Map",
+          width = 3,
+          #status = "danger",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          fluidRow(
+            shinydashboard::valueBoxOutput("snetBox2", width = 12),
+            shinydashboard::valueBoxOutput("snetBox3", width = 12)
           )
+        ),
+        shinydashboard::box(
+          title = "Hubs in Similarity Citation Net",
+          status = "info",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          width = 9,
+          DT::dataTableOutput('tableSnet') %>% withSpinner()
         )
-        
-      )
-    ),
-    tags$br(),
-    fluidRow(
-      shinydashboard::box(
-        width = 12,
-        status = "primary",
-        visNetworkOutput("snet.result", width = "100%", height = "1080px") %>% withSpinner()
+      ),
+      fluidRow(
+        shinydashboard::box(
+          width = 6,
+          status = "success",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          title = "Distribution of Shared Publications (edge weights)",
+          plotlyOutput("snet.top") %>% withSpinner()
+        ),
+        shinydashboard::box(
+          width = 6,
+          status = "warning",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          title = "Degree Distribution",
+          plotlyOutput("snet.dis") %>% withSpinner()
+        )
+      ),
+      
+      tags$br(),
+      fluidRow(
+        shinydashboard::box(
+          width = 2,
+          status = "warning",
+          solidHeader = TRUE,
+          selectInput(
+            inputId = "snet.show",
+            selected = NULL,
+            multiple = T,
+            label = h4("Input target PMID for Visulization"),
+            choices = NULL
+          ),
+          tags$p("!Notice: This can't be null. Push the 'START/UPDATE' button if it's null."),
+          div(
+            id = "snetButton",
+            bsButton(
+              inputId = "snetButton",
+              label = "Visualize Similarity Net",
+              icon = icon("eye"),
+              style = "danger"
+            )
+          ),
+          tags$br(),
+          downloadLink("snet.download", "        Download Full Map"),
+          tags$br(),
+          tags$br(),
+          div(img(
+            src = "legends.png",
+            #height = 200,
+            width = 100
+          ))
+        ),
+        shinydashboard::box(
+          width = 10,
+          status = "primary",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          visNetworkOutput("snet.result", width = "100%", height = "1080px") %>% withSpinner()
+        )
       )
     )
   ),
   tabPanel(
-    "MeSH MAP",
+    title = "MeSH MAP",
     icon = icon("key"),
-    fluidRow(
-      shinydashboard::box(
-        title = "Summary of Selected Citation Map",
-        width = 4,
-        fluidRow(
-          shinydashboard::valueBoxOutput("mnetBox2", width = 6),
-          shinydashboard::valueBoxOutput("mnetBox3", width = 6)
-        ),
-        tags$br(),
-        tags$br(),
-        selectInput(
-          inputId = "mnet.show",
-          selected = NULL,
-          multiple = T,
-          label = "Input MeSH",
-          choices = NULL
-        ),
-        
-        tags$br(),
-        tags$br(),
-        actionButton("mnetButton", "Visualize MeSH Map", icon =
-                       icon("eye")),
-        downloadLink("mnet.download", "        Download Full Map")
-      ),
-      shinydashboard::box(
-        title = "Toplogical Features",
-        width = 6,
-        tabsetPanel(
-          tabPanel(
-            "Distribution of Shared Citations (edge weights)",
-            plotlyOutput("mnet.top") %>% withSpinner()
-          ),
-          tabPanel(
-            title = "Hubs in MeSH Map",
-            status = "info",
-            solidHeader = TRUE,
-            collapsible = TRUE,
-            width = 12,
-            DT::dataTableOutput('tableMnet') %>% withSpinner()
-            
+    fluidPage(
+      fluidRow(
+        shinydashboard::box(
+          title = "Summary of MeSH Map",
+          width = 3,
+          #status = "danger",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          fluidRow(
+            shinydashboard::valueBoxOutput("mnetBox2", width = 12),
+            shinydashboard::valueBoxOutput("mnetBox3", width = 12)
           )
+        ),
+        shinydashboard::box(
+          title = "Hubs in MeSH Map",
+          status = "info",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          width = 9,
+          DT::dataTableOutput('tableMnet') %>% withSpinner()
         )
-        
-      )
-    ),
-    tags$br(),
-    fluidRow(
-      shinydashboard::box(
-        width = 12,
-        status = "primary",
-        visNetworkOutput("mnet.result", width = "100%", height = "1080px") %>% withSpinner()
+      ),
+      fluidRow(
+        shinydashboard::box(
+          width = 6,
+          status = "success",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          title = "Distribution of Shared Publications (edge weights)",
+          plotlyOutput("mnet.top") %>% withSpinner()
+        )
+      ),
+      
+      tags$br(),
+      fluidRow(
+        shinydashboard::box(
+          width = 2,
+          status = "warning",
+          solidHeader = TRUE,
+          selectInput(
+            inputId = "mnet.show",
+            selected = NULL,
+            multiple = T,
+            label = h4("Input target MeSH"),
+            choices = NULL
+          ),
+          tags$p("!Notice: This can't be null. Push the 'START/UPDATE' button if it's null."),
+          div(
+            id = "mnetButton",
+            bsButton(
+              inputId = "mnetButton",
+              label = "Visualize MeSH Map",
+              icon = icon("eye"),
+              style = "danger"
+            )
+          ),
+          tags$br(),
+          downloadLink("mnet.download", "        Download Full Map"),
+          tags$br(),
+          tags$br(),
+          div(img(
+            src = "legends.png",
+            #height = 200,
+            width = 100
+          ))
+        ),
+        shinydashboard::box(
+          width = 10,
+          status = "primary",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          visNetworkOutput("mnet.result", width = "100%", height = "1080px") %>% withSpinner()
+        )
       )
     )
   ),

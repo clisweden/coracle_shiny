@@ -78,3 +78,26 @@ plotlyf <- list(family = "Courier New, monospace",
           size = 18,
           color = "#7f7f7f")
 
+ay <- list(
+  tickfont = list(color = "rgb(0,100,0)"),
+  overlaying = "y",
+  side = "right",
+  title = "Cumulated Publications",
+  titlefont = list(
+    family = "Courier New, monospace",
+    size = 18,
+    color = "rgb(0,100,0)"
+  )
+)
+
+ayleft <- list(
+  tickfont = list(color = "rgba(152, 0, 0, .8)"),
+  overlaying = "yl",
+  side = "left",
+  title = "Daily New Publication",
+  titlefont = list(
+    family = "Courier New, monospace",
+    size = 18,
+    color = "rgba(152, 0, 0, .8)"
+  )
+)
