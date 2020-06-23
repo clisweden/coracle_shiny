@@ -9,18 +9,18 @@ shinyServer(function(input, output, session) {
       style = "success"
     )
   })
-  
+
   # update reset button for PMID file input-----
   values <- reactiveValues(upload_state = NULL)
-  
+
   observeEvent(input$file1, {
     values$upload_state <- 'uploaded'
   })
-  
+
   observeEvent(input$reset, {
     values$upload_state <- 'reset'
   })
-  
+
   file_input <- reactive({
     if (is.null(values$upload_state)) {
       return(NULL)
@@ -30,14 +30,14 @@ shinyServer(function(input, output, session) {
       return(NULL)
     }
   })
-  
+
   output$file1_ui <- renderUI({
     input$reset ## Create a dependency with the reset button
     fileInput('file1', label = NULL)
   })
-  
+
   # Data - pmid.selected=getSelectID()------------
-  
+
   getSelectID <- eventReactive(input$confirm, {
     # confirm buttons needs to be pressed to initiate this code
     isolate({
@@ -47,7 +47,7 @@ shinyServer(function(input, output, session) {
       } else {
         selected.journal <- raw.journal.all
       }
-      
+
       selected.country <- input$country
       selected.language <- input$lanuage
       if (!is.null(input$mesh.or)) {
@@ -55,18 +55,18 @@ shinyServer(function(input, output, session) {
       } else {
         selected.mesh.or <- raw.mesh.all
       }
-      
+
       selected.mesh.and <- input$mesh.and
       selected.mindate <- input$dateRange[1]
       selected.maxdate <- input$dateRange[2]
       query.pmid <- input$query.pmid
       inFile <- file_input()$datapath
-      
+
       if (!is.null(inFile)) {
         query.pmid2 <- read.csv(file = inFile) %>% .[, 1] %>% unlist(.)
         query.pmid <- base::union(query.pmid, query.pmid2)
       }
-      
+
       pmid.selected <-
         list(
           pub.type = subset(pmid.pub.type, value %in% selected.pub.type)[, "pmid"],
@@ -80,19 +80,19 @@ shinyServer(function(input, output, session) {
           )[, "pmid"]
         )
       pmid.selected <- Reduce(intersect, pmid.selected)
-      
-      
+
+
       if (!is.null(selected.mesh.and) &
           length(pmid.selected) > 1) {
         mesh.and = subset(pmid.mesh,
                           pmid %in% pmid.selected &
                             value %in% selected.mesh.and) %>% .[, 1] %>% table %>% .[. == length(selected.mesh.and)]
-        
+
         pmid.selected <-
           mesh.and %>% names %>% as.integer %>% intersect(pmid.selected, .)
-        
+
       }
-      
+
       if (!is.null(query.pmid)) {
         if (input$pmid.rule == "OR") {
           pmid.selected <- base::union(pmid.selected, query.pmid)
@@ -104,7 +104,7 @@ shinyServer(function(input, output, session) {
         }
       }
       pmid.selected
-      
+
     })
   })
   ## Data - getCount()------
@@ -118,7 +118,7 @@ shinyServer(function(input, output, session) {
     }
     return(plot.data)
   })
-  
+
   ## output$pub.count.new----
   output$pub.count.new <- renderPlot({
 
@@ -127,7 +127,7 @@ shinyServer(function(input, output, session) {
       plot(x=plot.data$date,y=plot.data$n,xlab="Date",ylab="Daily New Publications")
     }
   })
-  
+
   output$pub.count.all <- renderPlot({
     if (length(getSelectID()) > 0) {
       plot.data <- getCount()
@@ -148,7 +148,7 @@ shinyServer(function(input, output, session) {
       #icon = icon("copy","fa-0.5x")
     )
   })
-  
+
   output$meshBox <- renderValueBox({
     t = 0
     if (!is.null(getSelectID()) & !is.null(getMesh())) {
@@ -163,7 +163,7 @@ shinyServer(function(input, output, session) {
       #icon = icon("key","fa-0.5x")
     )
   })
-  
+
   output$cpairBox2 <- renderValueBox({
     t = 0
     if (!is.null(getCnet()[["cnet.edges"]])) {
@@ -176,7 +176,7 @@ shinyServer(function(input, output, session) {
       #icon = icon("atom","fa-0.5x")
     )
   })
-  
+
   ## output$country.map----------
   output$country.map <- renderLeaflet({
     pmid.selected <- getSelectID()
@@ -184,7 +184,7 @@ shinyServer(function(input, output, session) {
       table(subset(pmid.info, pmid %in% pmid.selected)[, "country"])
     plot.data <-
       plot.data[setdiff(names(plot.data), c("Not available", "International"))]
-    
+
     if (length(plot.data) > 0) {
       if (length(plot.data) == 1) {
         mybins = c(max(plot.data) - 1, max(plot.data))
@@ -194,15 +194,15 @@ shinyServer(function(input, output, session) {
         ))))
         mybins[length(mybins)] = max(plot.data)
       }
-      
-      
+
+
       # Prepare the text for tooltips:
-      
+
       v <- rep(0, length = length(world_spdf@data$NAME))
       tmp = match(names(plot.data), world_spdf@data$NAME)
       v[tmp[which(!is.na(tmp))]] = plot.data[which(!is.na(tmp))]
       v[v == 0] = NA
-      
+
       mypalette <-
         colorBin(
           palette = colorpal,
@@ -246,13 +246,13 @@ shinyServer(function(input, output, session) {
         )
       m
     }
-    
+
   })
   # Data- mesh.count-------
   getMesh <- eventReactive(input$confirm, {
     # confirm buttons needs to be pressed to initiate this code
-    
-    
+
+
     pmid.selected <- getSelectID()
     plot.data = NULL
     if (!is.null(pmid.selected) & length(pmid.selected) > 0) {
@@ -263,36 +263,36 @@ shinyServer(function(input, output, session) {
       if (sum(plot.data$mesh == "not available") > 0) {
         plot.data <- plot.data[-which(plot.data$mesh == "not available"), ]
       }
-      
+
     }
     return(plot.data)
-    
+
   })
   ## output$mesh.wordcloud------
   output$mesh.wordcloud <- renderWordcloud2({
     # wordcloud2(demoFreqC, size=input$size)
     plot.data <- getMesh()
-    
+
     if (!is.null(plot.data)) {
       wordcloud2(plot.data[input$mesh.rank[1]:input$mesh.rank[2], ], size = input$mesh.size)
     }
   })
-  
-  
+
+
   ##output$mesh.trend.plot--------
   output$mesh.trend.plot <- renderPlotly({
     pmid.selected <- getSelectID()
-    
+
     if (length(pmid.selected) > 0) {
       termMesh <-
         getMesh()
-      
+
       if (!is.null(termMesh)) {
         topMesh <-
           termMesh[input$mesh.rank2:min(nrow(termMesh), (input$mesh.rank2 + 9)), 1]
         plot.data <-
           unique(subset(pmid.info, pmid %in% pmid.selected)[, c("pmid", "date")])
-        
+
         plot.data <-
           merge(
             plot.data,
@@ -311,7 +311,7 @@ shinyServer(function(input, output, session) {
         plot.data <- bind_rows(plot.data, .id = "mesh")
         plot.data$mesh <-
           factor(plot.data$mesh, levels = topMesh)
-        
+
         plot_ly(plot.data,
                 type = 'scatter',
                 mode = 'lines',
@@ -341,7 +341,7 @@ shinyServer(function(input, output, session) {
         return(k[, c("date", "ncum")])
       })
       plot.data <- bind_rows(plot.data, .id = "language")
-      
+
       plot_ly(plot.data,
               type = 'scatter',
               mode = 'lines',
@@ -355,8 +355,8 @@ shinyServer(function(input, output, session) {
                 yaxis = list(title = "Total Publications", titlefont = plotlyf)
               )
     }
-    
-    
+
+
   })
   # output$journalPlot-------
   output$journalPlot <- renderPlotly({
@@ -377,7 +377,7 @@ shinyServer(function(input, output, session) {
         return(k[, c("date", "ncum")])
       })
       plot.data <- bind_rows(plot.data, .id = "journal")
-      
+
       a <-
         plot.data[, c("journal", "ncum")] %>% group_by(., journal) %>% summarise(nmax = max(ncum)) %>%
         arrange(., desc(nmax)) %>% as.data.frame()
@@ -395,7 +395,7 @@ shinyServer(function(input, output, session) {
       plot.data <- subset(plot.data, journal %in% a)
       plot.data$journal <-
         factor(plot.data$journal, levels = a)
-      
+
       plotly::plot_ly(plot.data,
                       type = 'scatter',
                       mode = 'lines',
@@ -434,7 +434,7 @@ shinyServer(function(input, output, session) {
                                   "language",
                                   "country",
                                   "date")] %>% .[order(.$cited, .$date, decreasing = T), ]
-      
+
       DT::datatable(
         t[1:min(nrow(t), 100),],
         extensions = 'Buttons',
@@ -457,7 +457,7 @@ shinyServer(function(input, output, session) {
       if (nrow(k) > 1) {
         k.edges <- data.frame(k[, 1:2], arrows = "to", smooth = TRUE)
         colnames(k.edges)[1:2] <- c("from", "to")
-        
+
         k.out <- as.data.frame(table(k.edges[, 1]))
         colnames(k.out) = c("pmid", "out")
         k.in <- as.data.frame(table(k.edges[, 2]))
@@ -465,11 +465,11 @@ shinyServer(function(input, output, session) {
         k.degree <- base::merge(k.in, k.out, all.x = T, all.y = T)
         k.degree[is.na(k.degree)] = 0
         k.degree$pmid <- as.integer(as.character(k.degree$pmid))
-        
+
         k.degree$total = rowSums(k.degree[, c("in", "out")])
-        
+
         net.ids <- k.degree$pmid
-        
+
         k.degree <-
           merge(k.degree,
                 pmid.info.extended[, c("pmid", "title", "LitCovid")],
@@ -477,7 +477,7 @@ shinyServer(function(input, output, session) {
         k.degree$selected <- FALSE
         k.degree$selected[is.element(k.degree$pmid, pmid.selected)] =
           TRUE
-        
+
         k.degree <-
           k.degree %>% .[order(.$total, decreasing = T),]
         updateSelectInput(
@@ -488,21 +488,21 @@ shinyServer(function(input, output, session) {
         )
         res[["cnet.edges"]] <- k.edges
         res[["cnet.degree"]] <- k.degree
-        
+
 
       }
     }
     return(res)
     #})
-    
+
   })
-  
-  
-  
+
+
+
   ##  output$cnet.top---------
   output$cnet.top <- renderPlotly({
     plot.data = getCnet()[["cnet.degree"]]
-    
+
     if (!is.null(plot.data)) {
       colnames(plot.data)[2] <- "In"
       plotly::plot_ly(
@@ -527,11 +527,11 @@ shinyServer(function(input, output, session) {
       )
     }
   })
-  
+
   ##   output$cnet.dis---------
   output$cnet.dis <- renderPlotly({
     plot.data = getCnet()[["cnet.degree"]]
-    
+
     if (!is.null(plot.data)) {
       plot.data <- as.data.frame(table(plot.data$total))
       plot.data$Freq = plot.data$Freq / sum(plot.data$Freq)
@@ -539,7 +539,7 @@ shinyServer(function(input, output, session) {
       fv <-
         plot.data %>% filter(!is.na(Freq)) %>% lm(log10(Freq) ~ Var1, .) %>% fitted.values()
       fv <- 10 ^ fv
-      
+
       plotly::plot_ly(
         plot.data,
         type = 'scatter',
@@ -556,7 +556,7 @@ shinyServer(function(input, output, session) {
       ) %>% layout(showlegend = F)
     }
   })
-  
+
   ## ouput$cnet.download----------
   output$cnet.download <- downloadHandler(
     filename = function() {
@@ -566,7 +566,7 @@ shinyServer(function(input, output, session) {
       write_csv2(getCnet()[["cnet.edges"]], file)
     }
   )
-  
+
   # output$tableCnet-------
   output$tableCnet = DT::renderDataTable({
     tableCnet <- getCnet()[["cnet.degree"]]
@@ -583,7 +583,7 @@ shinyServer(function(input, output, session) {
       )
     }
   })
-  
+
   ## Data-getCnetVis() network-------
   getCnetVis <- eventReactive(input$cnetButton, {
     fig = NULL
@@ -596,7 +596,7 @@ shinyServer(function(input, output, session) {
                  to %in% pmid.show)
       k2 <- data.frame(k2) %>% .[1:min(1000, nrow(k2)),]
       net.ids <- base::union(k2[, 1], k2[, 2])
-      
+
       k.nodes <-
         data.frame(id = net.ids,
                    label = net.ids,
@@ -623,7 +623,7 @@ shinyServer(function(input, output, session) {
           '</a>',
           sep = ""
         )
-      
+
       fig <- visNetwork(nodes = k.nodes, edges = k2) %>%
         visOptions(highlightNearest = list(enabled = TRUE, hover = TRUE)) %>%
         visLayout(randomSeed = 123) %>%
@@ -632,12 +632,12 @@ shinyServer(function(input, output, session) {
     }
     return(fig)
   })
-  
+
   ##  output$cnet.result--------
   output$cnet.result <- renderVisNetwork({
     getCnetVis()
   })
-  
+
   ## Data -getSnet()"snet.degree","snet.edges"-----------
   getSnet <- eventReactive(input$confirm, {
     plotlist <- vector("list", length = 3)
@@ -653,7 +653,7 @@ shinyServer(function(input, output, session) {
         k.edges <-
           unique(data.frame(k[, c("PMID1", "PMID2", "N")]))
         colnames(k.edges)[1:3] <- c("from", "to", "weight")
-        
+
         k.degree <-
           as.data.frame(table(c(k.edges[, 1], k.edges[, 2])))
         colnames(k.degree) = c("pmid", "degree")
@@ -663,19 +663,19 @@ shinyServer(function(input, output, session) {
                 all.x = T)
         k.degree$selected <- FALSE
         k.degree$selected[is.element(k.degree$pmid, pmid.selected)] = TRUE
-        
+
         k.bar <- as.data.frame(table(k.edges$weight))
         plotlist[["snet.bar"]] <- k.bar
         plotlist[["snet.degree"]] <- k.degree
         plotlist[["snet.edges"]] = arrange(k.edges, desc(weight))
-        
+
         updateSelectInput(
           session,
           "snet.show",
           selected = k.degree$pmid[1:3],
           choices = k.degree$pmid
         )
-        
+
       }
     }
     return(plotlist)
@@ -691,7 +691,7 @@ shinyServer(function(input, output, session) {
                  to %in% pmid.show)
       k2 <- data.frame(k2) %>% .[1:min(1000, nrow(k2)),]
       net.ids <- base::union(k2[, 1], k2[, 2])
-      
+
       k.nodes <-
         data.frame(id = net.ids,
                    label = net.ids,
@@ -719,15 +719,15 @@ shinyServer(function(input, output, session) {
           sep = ""
         )
       k2$title <- paste0("Shared Citation:", k2$weight)
-      
+
       visNetwork(nodes = k.nodes, edges = k2) %>%
         visOptions(highlightNearest = list(enabled = TRUE, hover = TRUE)) %>%
         visLayout(randomSeed = 123) %>%
         addFontAwesome() %>%
         visIgraphLayout()
-      
+
     }
-    
+
   })
   ##output$snet.result---------
   output$snet.result <- renderVisNetwork({
@@ -747,11 +747,11 @@ shinyServer(function(input, output, session) {
       write_csv2(data, file)
     }
   )
-  
+
   ##output$snet.top------
   output$snet.top <- renderPlotly({
     plot.data = getSnet()[["snet.bar"]]
-    
+
     if (!is.null(plot.data)) {
       plotly::plot_ly(
         plot.data,
@@ -770,7 +770,7 @@ shinyServer(function(input, output, session) {
   ##output$snet.dis-----------
   output$snet.dis <- renderPlotly({
     plot.data = getSnet()[["snet.degree"]]
-    
+
     if (!is.null(plot.data)) {
       plot.data <- as.data.frame(table(plot.data$degree))
       plot.data$Freq = plot.data$Freq / sum(plot.data$Freq)
@@ -778,7 +778,7 @@ shinyServer(function(input, output, session) {
       fv <-
         plot.data %>% filter(!is.na(Freq)) %>% lm(log10(Freq) ~ Var1, .) %>% fitted.values()
       fv <- 10 ^ fv
-      
+
       plotly::plot_ly(
         plot.data,
         type = 'scatter',
@@ -795,7 +795,7 @@ shinyServer(function(input, output, session) {
       ) %>% layout(showlegend = F)
     }
   })
-  
+
   # output$tableSnet-------
   output$tableSnet = DT::renderDataTable({
     tableSnet <- getSnet()[["snet.degree"]]
@@ -812,13 +812,13 @@ shinyServer(function(input, output, session) {
       )
     }
   })
-  
 
-  
+
+
   output$cnetBox2 <- renderValueBox({
     t = 0
-    if (!is.null(getCnet()[["cnet.edges"]])) {
-      t = nrow(getCnet()[["cnet.edges"]])
+    if (!is.null(getCnet()[["cnet.degree"]])) {
+      t = nrow(getCnet()[["cnet.degree"]])
     }
     valueBox(
       value = tags$p(paste0("Nodes:", t), style = "font-size: 50%;"),
@@ -827,7 +827,7 @@ shinyServer(function(input, output, session) {
       #icon = icon("atom","fa-0.5x")
     )
   })
-  
+
   output$cnetBox3 <- renderValueBox({
     t = 0
     if (!is.null(getCnet()[["cnet.edges"]])) {
@@ -864,7 +864,7 @@ shinyServer(function(input, output, session) {
       #icon = icon("atom","fa-0.5x")
     )
   })
-  
+
   ## Data -getMnet()"mnet.degree","mnet.edges"-----------
   getMnet <- eventReactive(input$confirm, {
     plotlist <- vector("list", length = 3)
@@ -880,47 +880,47 @@ shinyServer(function(input, output, session) {
         k.edges <- unique(k)
         #unique(data.frame(k[, c("PMID1", "PMID2", "N")]))
         colnames(k.edges)[1:3] <- c("from", "to", "weight")
-        
+
         k.degree <-
           as.data.frame(table(c(k.edges[, 1], k.edges[, 2])))
         colnames(k.degree) = c("MeSH", "Degree")
-        
+
         k.degree$selected <- FALSE
         k.degree$selected[is.element(k.degree$MeSH, mesh.selected)] = TRUE
-        
+
         k.bar <- as.data.frame(table(k.edges$weight))
-        
+
         plotlist[["mnet.bar"]] <- k.bar
         plotlist[["mnet.degree"]] <- k.degree
         plotlist[["mnet.edges"]] = arrange(k.edges, desc(weight))
         tmp <- k.degree[k.degree$selected==TRUE,]
         tmp <- tmp[order(tmp$Degree,decreasing = T),]
-        
+
         updateSelectInput(session,
                           "mnet.show",
                           selected = tmp$MeSH[1:3],
                           choices = k.degree$MeSH)
       }
     }
-   
+
     return(plotlist)
   })
-  
 
-  
+
+
   ## Data-getMnetVis() network of mnet----------
   getMnetVis <- eventReactive(input$mnetButton, {
     mesh.show = input$mnet.show
     k.edges <-
       getMnet()[["mnet.edges"]]
-    
+
     if (!is.null(k.edges) & !is.null(mesh.show)) {
       k2 <-
         subset(k.edges, from %in% mesh.show |
                  to %in% mesh.show)
       k2 <- data.frame(k2) %>% .[1:min(1000, nrow(k2)),]
       net.ids <- base::union(k2[, 1], k2[, 2])
-      
+
       k.nodes <-
         data.frame(id = net.ids,
                    label = net.ids,
@@ -930,19 +930,19 @@ shinyServer(function(input, output, session) {
         "forestgreen"
       k.nodes[which(k.nodes$label %in% mesh.show), "color"] <-
         "red"
-      
+
       k2$title <- paste0("Shared Citation:", k2$weight)
-      
+
       visNetwork(nodes = k.nodes, edges = data.frame(k2)[k2$weight >= 3,]) %>%
         visOptions(highlightNearest = list(enabled = TRUE, hover = TRUE)) %>%
         visLayout(randomSeed = 123) %>%
         addFontAwesome() %>%
         visIgraphLayout()
-      
+
     }
-    
+
   })
-  
+
   ##output$mnet.result---------
   output$mnet.result <- renderVisNetwork({
     getMnetVis()
@@ -961,11 +961,11 @@ shinyServer(function(input, output, session) {
       write_csv2(data, file)
     }
   )
-  
+
   ##output$mnet.top------
   output$mnet.top <- renderPlotly({
     plot.data = getMnet()[["mnet.bar"]]
-    
+
     if (!is.null(plot.data)) {
       plotly::plot_ly(
         plot.data,
@@ -981,7 +981,7 @@ shinyServer(function(input, output, session) {
       )
     }
   })
-  
+
   # output$tableMnet-------
   output$tableMnet = DT::renderDataTable({
     tableMnet <- getMnet()[["mnet.degree"]]
@@ -998,7 +998,7 @@ shinyServer(function(input, output, session) {
       )
     }
   })
-  
+
   ##output$mnet box--------
   output$mnetBox2 <- renderValueBox({
     t = 0
