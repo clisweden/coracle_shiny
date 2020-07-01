@@ -20,66 +20,33 @@ The How to Start **CORACLE** video series will take you from **General Search** 
 
 
 
-| Part 1 - How to Search | Part 2 - How to understand Outputs               | Part 3 - How to run CORACLE locally from your computer | Part 4 - Examples          |
-| :--------------------- | :----------------------------------------------- | :----------------------------------------------------- | -------------------------- |
-| 1. Introduction        | STATISTICS tab                                   |                                                        | COVID-19 research hotspots |
-| 2. Publication Dates   | 9. STATISTICS - Summary                          |                                                        | Tracking ACE2 in COVID-19  |
-| 3. Publication Types   | 10. Publication Trend                            |                                                        |                            |
-| 4. Journals            | 11. MeSH Trend                                   |                                                        |                            |
-| 5. Countries           | 12. Country Trend                                |                                                        |                            |
-| 6. Languages           | 13. Language Trend                               |                                                        |                            |
-| 7. MeSH/Keywords       | 14. Journal Trend                                |                                                        |                            |
-| 8. Customised PMID     | 15. Popular Publications                         |                                                        |                            |
-|                        | ***CITATION MAP tab***                           |                                                        |                            |
-|                        | 16. CITATION MAP - Summary                       |                                                        |                            |
-|                        | 17. Hubs in Citation Map                         |                                                        |                            |
-|                        | 18. Central Publications                         |                                                        |                            |
-|                        | 19. Degree Distribution                          |                                                        |                            |
-|                        | 20. Visulization of Citation Map                 |                                                        |                            |
-|                        | ***SIMILARITY CITATION NETWORK tab***            |                                                        |                            |
-|                        | 21. Summary                                      |                                                        |                            |
-|                        | 22. Hubs in Similarity Citation Network          |                                                        |                            |
-|                        | 23. Distribution of Shared Citations             |                                                        |                            |
-|                        | 24. Degree Distribution                          |                                                        |                            |
-|                        | 25. Visualization of Similarity Citation Network |                                                        |                            |
-|                        | ***MeSH MAP tab***                               |                                                        |                            |
-|                        | 26. MeSH Map - Summary                           |                                                        |                            |
-|                        | 27. Hubs in MeSH Map                             |                                                        |                            |
-|                        | 27. Distribution of Shared Citations             |                                                        |                            |
-|                        | 29. Visulization of MeSH Map                     |                                                        |                            |
-
-
-
-| Part 1 - How to Search                                  | Part 2 - How to understand  Outputs              |
-| ------------------------------------------------------- | ------------------------------------------------ |
-| 1. Introduction                                         | STATISTICS tab                                   |
-| 2. Publication Dates                                    | 9. STATISTICS - Summary                          |
-| 3. Publication Types                                    | 10. Publication Trend                            |
-| 4.  Journals                                            | 11. MeSH Trend                                   |
-| 5.  Countries                                           | 12. Country Trend                                |
-| 6.  Languages                                           | 13. Language Trend                               |
-| 7.  MeSH/Keywords                                       | 14. Journal Trend                                |
-| 8.  Customised PMID                                     | 15. Popular Publications                         |
-|                                                         | CITATION MAP tab                                 |
-|                                                         | 16. CITATION MAP - Summary                       |
-|                                                         | 17. Hubs in Citation Map                         |
-|                                                         | 18. Central Publications                         |
-|                                                         | 19. Degree Distribution                          |
-|                                                         | 20. Visulization of Citation Map                 |
-|                                                         | SIMILARITY CITATION NETWORK tab                  |
-|                                                         | 21. Summary                                      |
-|                                                         | 22. Hubs in Similarity Citation Network          |
-|                                                         | 23. Distribution of Shared Citations             |
-|                                                         | 24. Degree Distribution                          |
-|                                                         | 25. Visualization of Similarity Citation Network |
-|                                                         | MeSH MAP tab                                     |
-|                                                         | 26. MeSH Map - Summary                           |
-|                                                         | 27. Hubs in MeSH Map                             |
-|                                                         | 27. Distribution of Shared Citations             |
-|                                                         | 29. Visulization of MeSH Map                     |
-| Part 3 - How to run CORACLE  locally from your computer | Part 4 - Examples                                |
-|                                                         | COVID-19  research hotspots                      |
-|                                                         | Tracking ACE2  in COVID-19                       |
+| Part 1 - How to Search | Part 2 - How to understand Outputs               | Part 3 - How to run <br>CORACLE locally <br> from your computer | Part 4 - Examples          |
+| :--------------------- | :----------------------------------------------- | :----------------------------------------------------------- | :------------------------- |
+| 1. Introduction        | STATISTICS tab                                   | GitHub Download                                              | COVID-19 research hotspots |
+| 2. Publication Dates   | 9. STATISTICS - Summary                          | Installation                                                 | Tracking ACE2 in COVID-19  |
+| 3. Publication Types   | 10. Publication Trend                            | Run                                                          |                            |
+| 4. Journals            | 11. MeSH Trend                                   |                                                              |                            |
+| 5. Countries           | 12. Country Trend                                |                                                              |                            |
+| 6. Languages           | 13. Language Trend                               |                                                              |                            |
+| 7. MeSH/Keywords       | 14. Journal Trend                                |                                                              |                            |
+| 8. Customised PMID     | 15. Popular Publications                         |                                                              |                            |
+|                        | ***CITATION MAP tab***                           |                                                              |                            |
+|                        | 16. CITATION MAP - Summary                       |                                                              |                            |
+|                        | 17. Hubs in Citation Map                         |                                                              |                            |
+|                        | 18. Central Publications                         |                                                              |                            |
+|                        | 19. Degree Distribution                          |                                                              |                            |
+|                        | 20. Visulization of Citation Map                 |                                                              |                            |
+|                        | ***SIMILARITY CITATION NETWORK tab***            |                                                              |                            |
+|                        | 21. Summary                                      |                                                              |                            |
+|                        | 22. Hubs in Similarity Citation Network          |                                                              |                            |
+|                        | 23. Distribution of Shared Citations             |                                                              |                            |
+|                        | 24. Degree Distribution                          |                                                              |                            |
+|                        | 25. Visualization of Similarity Citation Network |                                                              |                            |
+|                        | ***MeSH MAP tab***                               |                                                              |                            |
+|                        | 26. MeSH Map - Summary                           |                                                              |                            |
+|                        | 27. Hubs in MeSH Map                             |                                                              |                            |
+|                        | 27. Distribution of Shared Citations             |                                                              |                            |
+|                        | 29. Visulization of MeSH Map                     |                                                              |                            |
 
 ## Written tutorials
 
