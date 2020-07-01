@@ -434,6 +434,7 @@ shinyServer(function(input, output, session) {
                                   "language",
                                   "country",
                                   "date")] %>% .[order(.$cited, .$date, decreasing = T), ]
+      colnames(t)[1]="PMID"
 
       DT::datatable(
         t[1:min(nrow(t), 100),],
@@ -570,10 +571,14 @@ shinyServer(function(input, output, session) {
   # output$tableCnet-------
   output$tableCnet = DT::renderDataTable({
     tableCnet <- getCnet()[["cnet.degree"]]
+    
     if (!is.null(tableCnet)) {
       DT::datatable(
         tableCnet[1:min(nrow(tableCnet), 100),] %>% .[order(.$total, .$selected, decreasing = T), ],
         extensions = 'Buttons',
+        colnames=c("PMID","In-degree","Out-degree","Total-
+                   
+                   degree","Title","LitCovid","Global Filter"),
         options = list(
           dom = 'Bfrtip',
           pageLength = 5,
@@ -762,7 +767,7 @@ shinyServer(function(input, output, session) {
         text = ~ paste('Shared Citation: ', Var1,
                        '</br> Number of Pairs: ', Freq)
       ) %>% layout(
-        xaxis = list(title = "Number of Shared Citation (weight of edges)", titlefont = plotlyf),
+        xaxis = list(title = "Number of Shared Citation<br>(weight of edges)", titlefont = plotlyf),
         yaxis = list(title = "Number of Pairs (edges)", titlefont = plotlyf)
       )
     }
@@ -799,10 +804,12 @@ shinyServer(function(input, output, session) {
   # output$tableSnet-------
   output$tableSnet = DT::renderDataTable({
     tableSnet <- getSnet()[["snet.degree"]]
+    
     if (!is.null(tableSnet)) {
       DT::datatable(
         tableSnet[1:min(nrow(tableSnet), 100),] %>% .[order(.$degree, .$selected, decreasing = T), ],
         extensions = 'Buttons',
+        colnames= c("PMID","Degree","Title","LitCovid","Global Filter"),
         options = list(
           dom = 'Bfrtip',
           pageLength = 5,
@@ -976,7 +983,7 @@ shinyServer(function(input, output, session) {
         text = ~ paste('Shared Citation: ', Var1,
                        '</br> Number of Pairs: ', Freq)
       ) %>% layout(
-        xaxis = list(title = "Number of Shared Citation (weight of edges)", titlefont = plotlyf),
+        xaxis = list(title = "Number of Shared Publications<br>(weight of edges)", titlefont = plotlyf),
         yaxis = list(title = "Number of Pairs (edges)", titlefont = plotlyf)
       )
     }
@@ -985,10 +992,12 @@ shinyServer(function(input, output, session) {
   # output$tableMnet-------
   output$tableMnet = DT::renderDataTable({
     tableMnet <- getMnet()[["mnet.degree"]]
+
     if (!is.null(tableMnet)) {
       DT::datatable(
         tableMnet[1:min(nrow(tableMnet), 100),] %>% .[order(.$Degree, .$selected, decreasing = T), ],
         extensions = 'Buttons',
+        colnames=c("MeSH","Degree","Selected"),
         options = list(
           dom = 'Bfrtip',
           pageLength = 5,

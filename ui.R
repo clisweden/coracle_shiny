@@ -56,7 +56,7 @@ sidebar <- dashboardSidebar(
   
   sliderInput(
     "dateRange",
-    label = "Date Range",
+    label = "Range of Publication Dates",
     min = min(pmid.info$date),
     max = max(pmid.info$date),
     value = c(min(pmid.info$date),
@@ -260,7 +260,7 @@ body <- dashboardBody(tabsetPanel(
     
     fluidRow(
       shinydashboard::box(
-        title = "Data Table by Popular Cited/Latest publications",
+        title = "Data Table of Highly Cited/Most Recent Publications",
         status = "info",
         solidHeader = TRUE,
         collapsible = TRUE,
@@ -332,7 +332,7 @@ body <- dashboardBody(tabsetPanel(
             id = "cnetButton",
             bsButton(
               inputId = "cnetButton",
-              label = "Visualize Citation Map",
+              label = "Visualize",
               icon = icon("eye"),
               style = "danger"
             )
@@ -348,6 +348,7 @@ body <- dashboardBody(tabsetPanel(
           ))
         ),
         shinydashboard::box(
+          title = "Visualization of Citation Map",
           width = 10,
           status = "primary",
           solidHeader = TRUE,
@@ -359,12 +360,12 @@ body <- dashboardBody(tabsetPanel(
   ),
   
   tabPanel(
-    title = "Similarity Citation Network",
+    title = "SIMILARITY CITATION NETWORK",
     icon = icon("arrows-alt"),
     fluidPage(
       fluidRow(
         shinydashboard::box(
-          title = "Summary of Selected Citation Map",
+          title = "Summary of Selected Similarity Citation Network",
           width = 3,
           #status = "danger",
           solidHeader = TRUE,
@@ -375,7 +376,7 @@ body <- dashboardBody(tabsetPanel(
           )
         ),
         shinydashboard::box(
-          title = "Hubs in Similarity Citation Net",
+          title = "Hubs in Similarity Citation Network",
           status = "info",
           solidHeader = TRUE,
           collapsible = TRUE,
@@ -389,7 +390,7 @@ body <- dashboardBody(tabsetPanel(
           status = "success",
           solidHeader = TRUE,
           collapsible = TRUE,
-          title = "Distribution of Shared Publications (edge weights)",
+          title = "Distribution of Shared Citations (edge weights)",
           plotlyOutput("snet.top") %>% withSpinner()
         ),
         shinydashboard::box(
@@ -420,7 +421,7 @@ body <- dashboardBody(tabsetPanel(
             id = "snetButton",
             bsButton(
               inputId = "snetButton",
-              label = "Visualize Similarity Net",
+              label = "Visualize",
               icon = icon("eye"),
               style = "danger"
             )
@@ -436,6 +437,7 @@ body <- dashboardBody(tabsetPanel(
           ))
         ),
         shinydashboard::box(
+          title = "Visualization of Similarity Citation Network",
           width = 10,
           status = "primary",
           solidHeader = TRUE,
@@ -499,7 +501,7 @@ body <- dashboardBody(tabsetPanel(
             id = "mnetButton",
             bsButton(
               inputId = "mnetButton",
-              label = "Visualize MeSH Map",
+              label = "Visualize",
               icon = icon("eye"),
               style = "danger"
             )
@@ -515,6 +517,7 @@ body <- dashboardBody(tabsetPanel(
           ))
         ),
         shinydashboard::box(
+          title="Visualization of MeSH Map",
           width = 10,
           status = "primary",
           solidHeader = TRUE,
