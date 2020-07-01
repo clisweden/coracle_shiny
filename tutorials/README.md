@@ -1,4 +1,4 @@
-#Tutorial for CORACLE
+# Tutorial for CORACLE
 
 [**CORACLE** (COVID-19 liteRAture CompiLEr)](https://datahub.shinyapps.io/CORACLE/): A web-based shiny app for efficient tracking and extraction of pertinent clinical and mechanistic insight from the growing avalanche of literature related to SARS-CoV-2 virus and COVID-19 disease.
 
@@ -52,17 +52,17 @@ The How to Start **CORACLE** video series will take you from **General Search** 
 
 To activate CORACLE, please press the “START” button on the upper left. It may take several minutes for CORACLE to load the data the first time you use it. If the data loading is completed, when the “START” button is mouse-over, the mouse pointer will change from an arrow to a hand shape.
 
-###Part 1 – Search Functions
+### Part 1 – Search Functions
 
 To activate CORACLE, please press the “START” button on the upper left. It may take several minutes for CORACLE to load the data the first time you use it. Please note that you will be automatically disconnected after 5 minutes of inactivity. To re-connect, press the black re-load button that appears in the bottom left corner, and press “START” again to reinitiate your search. Currently, CORACLE is supported on Safari and Explorer browsers only due to limitations in the R Shiny environment. For questions about other browsers, please visit the R Shiny web site (https://shiny.rstudio.com/) for updated information.
 
-1. Introduction
+#### 1. Introduction
 
 CORACLE is a daily-updated and interactive R Shiny app, with its background literature data collected and analyzed from PubMed and LitCovid databases, by Python and R programs. The first version of CORACLE is based on the daily updated publication list from LitCovid and their citations in PubMed, and provides in its most rudimentary forms: 1) fast highlight of emerging research topics, including identification of popular articles, keywords, and journals; 2) personalized extraction of the literature of interest by multilevel filters and customized PMID (PubMed Identifier) lists, combined with citation relationship; 3) prioritize highly related publications by direct citation map and indirect similarity citation network; 4) understand the relationships among research areas (keywords). We provide both web-based version as an easy-access, user-friendly interface, and a downloadable desktop solutions for the more experienced R user. The latter will offer a faster search functionality. If you find our tools useful, please acknowledge us by citing PMID: XXXXXXX. 
 
- The Search-function available in the left panel (black background) consists of five major filter blocks; publication type, country, language, MeSH (Medical Subject Headings) term, and customized PMID list. The functionality of these, and how to set up the each respective search is outlined in detail below. These five filters can be used jointly to set up personalized searches by inputting multiple values in each filter, either as a intersection filter (AND) or union filter (OR) at the bottom left. The default relationships are AND for the search terms publication dates, type, country, language, and MeSH, and OR for customized PMID list/input. Please note that the output results will be updated first after clicking the "START/UPDATE" button on the top of the filter block. 
+ The Search-function available in the left panel (black background) consists of five major filter blocks; publication type, country, language, MeSH (Medical Subject Headings) term, and customized PMID list. The functionality of these, and how to set up the each respective search is outlined in detail below. These five filters can be used jointly to set up personalized searches by inputting multiple values in each filter, either as a intersection filter (AND) or union filter (OR) at the bottom left. The default relationships are AND for the search terms publication dates, type, country, language, and MeSH, and OR for customized PMID list/input. Please note that the output results will be updated first after clicking the "START/UPDATE" button on the top of the filter block.
 
-2. Range of Publication Dates
+#### 2. Range of Publication Dates
 
 This filter consists of a slider, which delimits the range for the official date of publications in the PubMed database to be included in your compilation. The default setting for the range of Publication Dates is from Jan 18, 2020 (the earliest date of literature in the LitCovid database) to the latest date of CORACLE.
 
@@ -94,11 +94,11 @@ The last filtering option concerns customized PMIDs, and consists of two sub-fil
 
 ### Part 2 – Output Functions
 
-####STATISTICS tab
+#### STATISTICS tab
 
 The STATISTICS tab summarizes the results and trends of the publications selected in through the global filtering options in Part 1 in seven different display modes.
 
-9. STATISTICS – Summary
+##### 9. STATISTICS – Summary
 
 In the top banner of the STATISTICS tab, four value boxes display the following numericals of the publications filtered/searched:
 
