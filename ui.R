@@ -21,7 +21,7 @@ header <- dashboardHeader(
     a(
       strong("Tutorials"),
       height = 40,
-      href = "https://github.com/clisweden/coracle_tutorials",
+      href = "https://github.com/clisweden/coracle_shiny/tree/master/tutorials",
       title = "",
       target = "_blank"
     ),
