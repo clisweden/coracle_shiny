@@ -427,7 +427,7 @@ shinyServer(function(input, output, session) {
     pmid.selected <- getSelectID()
     if (length(pmid.selected) > 0) {
       t = subset(pmid.info, pmid %in% pmid.selected &
-                   cited > 0)[, c("pmid",
+                   cited >= 0)[, c("pmid",
                                   "title",
                                   "cited",
                                   "journal",
@@ -866,7 +866,7 @@ shinyServer(function(input, output, session) {
     }
     valueBox(
       value = tags$p(paste0("Edges:", t), style = "font-size: 50%;"),
-      subtitle = "Citation Pairs",
+      subtitle = "Publication Pairs",
       color = "green"
       #icon = icon("atom","fa-0.5x")
     )

@@ -53,8 +53,8 @@ raw.journal.all <- sort(as.character(unique(pmid.info$journal)))
 raw.pub.type.all <- sort(as.character(unique(pmid.pub.type$value)))
 raw.mesh.all <- sort(as.character(unique(pmid.mesh$value))) 
 
-relMeSH <- subset(relMeSH,n>3)
-relPMID <- subset(relPMID,N>3)
+# relMeSH <- subset(relMeSH,n>3)
+# relPMID <- subset(relPMID,N>3)
 # color-----------
 colorpal = c(
   "#FFFFE5",

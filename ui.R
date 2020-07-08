@@ -1,5 +1,6 @@
-# HEADER ------------------------------------------------------------------
+# <HEADER> ------------------------------------------------------------------
 header <- dashboardHeader(
+  
   title = div(img(
     src = "logob.png",
     height = 30,
@@ -39,8 +40,10 @@ header <- dashboardHeader(
   )
 )
 
-
+# <SIDEBAR>------ 
+## 1. Global Filters------
 sidebar <- dashboardSidebar(
+  ## ~1.1 Start button-----
   tags$br(),
   width = 300,
   
@@ -53,7 +56,7 @@ sidebar <- dashboardSidebar(
       style = "danger"
     )
   ),
-  
+  ## ~1.2 Range of date-----
   sliderInput(
     "dateRange",
     label = "Range of Publication Dates",
@@ -62,6 +65,7 @@ sidebar <- dashboardSidebar(
     value = c(min(pmid.info$date),
               max(pmid.info$date))
   ),
+  ## ~1.3 Publication type-----
   pickerInput(
     inputId = "pub.type",
     label = "Publication Type",
@@ -74,7 +78,7 @@ sidebar <- dashboardSidebar(
       selectedTextFormat = "count > 3"
     )
   ),
-  
+  ## ~1.4 Journal-----
   selectInput(
     inputId = "journal",
     selected = NULL,
@@ -82,7 +86,7 @@ sidebar <- dashboardSidebar(
     label = "Journal",
     choices = raw.journal.all
   ),
-  
+  ## ~1.5 Country-----
   pickerInput(
     inputId = "country",
     label = "Country",
@@ -96,7 +100,7 @@ sidebar <- dashboardSidebar(
     )
   ),
   #tags$br(),
-  
+  ## ~1.6 Language-----
   pickerInput(
     inputId = "lanuage",
     selected = c("English"),
@@ -111,16 +115,17 @@ sidebar <- dashboardSidebar(
   ),
   #tags$hr(),
   
-  
+  ## ~1.7 MeSH-----
   selectInput(
     inputId = "mesh.or",
+    ### ace 2 example
     #selected = c("ace 2","293t-ace2","ace2","ace2 blocker","ace2 expression","ace2 negative","ace2 receptor","ace2 receptors","ace2, angiotensin converting enzyme 2","ace2, angiotensin-converting enzyme 2","angiotensin converting enzyme 2 (ace2","angiotensin converting enzyme 2(ace2","angiotensin-converting enzyme 2 (ace2","angiotensin-converting enzyme 2, ace2","angiotensin-converting enzyme-2 (ace2","expression of ace2","hace2","human angiotensin-converting enzyme 2 (ace2","humen ace2","recombinant human ace2"),
     selected = NULL,
     multiple = T,
     label = "Enter MeSH(s) [OR]",
     choices = raw.mesh.all
   ),
-  
+
   selectInput(
     inputId = "mesh.and",
     selected = NULL,
@@ -128,7 +133,8 @@ sidebar <- dashboardSidebar(
     label = "Enter MeSH(s) [AND]",
     choices = raw.mesh.all
   ),
-  
+  ## ~1.8 Customized PMID-----
+  ### Rules of customized PMID with other filter
   radioGroupButtons(
     inputId = "pmid.rule",
     label = "Customized PMID Rules",
@@ -138,6 +144,7 @@ sidebar <- dashboardSidebar(
                                 lib = "glyphicon"))
   ),
   #tags$hr(),
+  ### Input of individual PMID
   selectInput(
     inputId = "query.pmid",
     selected = NULL,
@@ -145,18 +152,20 @@ sidebar <- dashboardSidebar(
     label = "Enter PMID(s)",
     choices = sort(as.character(pmid.info$pmid))
   ),
-  
+  ### Upload PMID csv list
   uiOutput('file1_ui'),
   actionButton('reset', 'Reset PMID File Input')
   
 )
 
 
-
+# <BODY>----
 body <- dashboardBody(tabsetPanel(
+  ## 2. STATISTICS tab------
   tabPanel(
     "STATISTICS",
     icon = icon("poll"),
+    ### ~2.1 STATISTICS - Summary------
     fluidRow(
       shinydashboard::box(
         title = "Summary of Selected/Available Items",
@@ -176,28 +185,33 @@ body <- dashboardBody(tabsetPanel(
       )
     ),
     fluidRow(
+      ### ~2.2 Publication Trend------
       shinydashboard::box(
         title = "Publication Trend",
         status = "danger",
         solidHeader = TRUE,
         collapsible = TRUE,
         width = 6,
+        height = 550,
         tabsetPanel(
           tabPanel(
             "Daily New Publications",
-        plotOutput("pub.count.new") %>% withSpinner()),
-        tabPanel(
-          "Cumulated Publications",
-          plotOutput("pub.count.all") %>% withSpinner()
-        )
+            plotOutput("pub.count.new") %>% withSpinner()
+          ),
+          tabPanel(
+            "Cumulated Publications",
+            plotOutput("pub.count.all") %>% withSpinner()
+          )
         )
       ),
+      ### ~2.3 MeSH Trend------
       shinydashboard::box(
         title = "MeSH Key Words Trend",
         status = "warning",
         solidHeader = TRUE,
         collapsible = TRUE,
         width = 6,
+        height = 550,
         tabsetPanel(
           tabPanel(
             "MeSH Wordcloud",
@@ -231,33 +245,39 @@ body <- dashboardBody(tabsetPanel(
     ),
     
     fluidRow(
+
       shinydashboard::box(
         title = "Country & Language Trend",
         status = "primary",
         solidHeader = TRUE,
         collapsible = TRUE,
         width = 6,
+        height = 500,
         tabsetPanel(
+          ### ~2.4 Country Trend------
           tabPanel(
             "Country Trend",
             leafletOutput("country.map") %>% withSpinner()
           ),
+          ### ~2.5 Language Trend------
           tabPanel(
             "Language Trend",
             plotlyOutput("languagePlot") %>% withSpinner()
           )
         )
       ),
+      ### ~2.6 Journal Trend------
       shinydashboard::box(
         title = "Journal Trend",
         status = "success",
         solidHeader = TRUE,
         collapsible = TRUE,
         width = 6,
+        height = 500,
         plotlyOutput("journalPlot") %>% withSpinner()
       )
     ),
-    
+    ### ~2.7 Popular Publications------
     fluidRow(
       shinydashboard::box(
         title = "Data Table of Highly Cited/Most Recent Publications",
@@ -265,47 +285,44 @@ body <- dashboardBody(tabsetPanel(
         solidHeader = TRUE,
         collapsible = TRUE,
         width = 12,
-        DT::dataTableOutput('table1') %>% withSpinner()
+        #DT::dataTableOutput('table1') %>% withSpinner()
+        div(style = 'overflow-x: scroll', DT::dataTableOutput('table1') %>% withSpinner())
       )
     )
     
   ),
+  ## 3. CITATION MAP tab----
   tabPanel(
     title = "CITATION MAP",
     icon = icon("atom"),
     fluidPage(
+      ### ~3.1 CITATION MAP – Summary-----
       fluidRow(
         shinydashboard::box(
           title = "Summary of Filtered Citation Map",
-          width = 3,
-          #status = "danger",
+          status = "danger",
+          width = 12,
           solidHeader = TRUE,
           collapsible = TRUE,
-          fluidRow(
-            shinydashboard::valueBoxOutput("cnetBox2", width = 12),
-            shinydashboard::valueBoxOutput("cnetBox3", width = 12)
-          )
-        ),
-        shinydashboard::box(
-          title = "Hubs in Citation Map",
-          status = "info",
-          solidHeader = TRUE,
-          collapsible = TRUE,
-          width = 9,
-          DT::dataTableOutput('tableCnet') %>% withSpinner()
+          shinydashboard::valueBoxOutput("cnetBox2", width = 6),
+          shinydashboard::valueBoxOutput("cnetBox3", width = 6)
         )
       ),
       fluidRow(
+        ### ~3.2 Central Publications------
         shinydashboard::box(
           width = 6,
+          height = 500,
           status = "success",
           solidHeader = TRUE,
           collapsible = TRUE,
           title = "Central Publications",
           plotlyOutput("cnet.top") %>% withSpinner()
         ),
+        ### ~3.3 Degree Distribution------
         shinydashboard::box(
           width = 6,
+          height = 500,
           status = "warning",
           solidHeader = TRUE,
           collapsible = TRUE,
@@ -313,47 +330,62 @@ body <- dashboardBody(tabsetPanel(
           plotlyOutput("cnet.dis") %>% withSpinner()
         )
       ),
+      ### ~3.4 Hubs in Citation Map------
+      fluidRow(
+        shinydashboard::box(
+          title = "Hubs in Citation Map",
+          status = "info",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          width = 12,
+          #DT::dataTableOutput('tableCnet') %>% withSpinner()
+          div(style = 'overflow-x: scroll', DT::dataTableOutput('tableCnet') %>% withSpinner())
+        )
+      ),
       
       tags$br(),
       fluidRow(
         shinydashboard::box(
-          width = 2,
-          status = "warning",
-          solidHeader = TRUE,
-          selectInput(
-            inputId = "cnet.show",
-            selected = NULL,
-            multiple = T,
-            label = h4("Input target PMID for Visulization"),
-            choices = NULL
+          width = 12,
+          shinydashboard::box(
+            width = 2,
+            status = "warning",
+            solidHeader = TRUE,
+            selectInput(
+              inputId = "cnet.show",
+              selected = NULL,
+              multiple = T,
+              label = h4("Input target PMID for Visulization"),
+              choices = NULL
+            ),
+            tags$p(
+              "!Notice: This can't be null. Push the 'START/UPDATE' button if it's null."
+            ),
+            div(
+              id = "cnetButton",
+              bsButton(
+                inputId = "cnetButton",
+                label = "Visualize",
+                icon = icon("eye"),
+                style = "danger"
+              )
+            ),
+            tags$br(),
+            downloadLink("cnet.download", "        Download Full Map"),
+            tags$br(),
+            tags$br(),
+            div(img(src = "legends.png",
+                    #height = 200,
+                    width = 100))
           ),
-          tags$p("!Notice: This can't be null. Push the 'START/UPDATE' button if it's null."),
-          div(
-            id = "cnetButton",
-            bsButton(
-              inputId = "cnetButton",
-              label = "Visualize",
-              icon = icon("eye"),
-              style = "danger"
-            )
-          ),
-          tags$br(),
-          downloadLink("cnet.download", "        Download Full Map"),
-          tags$br(),
-          tags$br(),
-          div(img(
-            src = "legends.png",
-            #height = 200,
-            width = 100
-          ))
-        ),
-        shinydashboard::box(
-          title = "Visualization of Citation Map",
-          width = 10,
-          status = "primary",
-          solidHeader = TRUE,
-          collapsible = TRUE,
-          visNetworkOutput("cnet.result", width = "100%", height = "1080px") %>% withSpinner()
+          shinydashboard::box(
+            title = "Visualization of Citation Map",
+            width = 10,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            visNetworkOutput("cnet.result", width = "100%", height = "1080px") %>% withSpinner()
+          )
         )
       )
     )
@@ -366,27 +398,19 @@ body <- dashboardBody(tabsetPanel(
       fluidRow(
         shinydashboard::box(
           title = "Summary of Selected Similarity Citation Network",
-          width = 3,
+          status = "danger",
+          width = 12,
           #status = "danger",
           solidHeader = TRUE,
           collapsible = TRUE,
-          fluidRow(
-            shinydashboard::valueBoxOutput("snetBox2", width = 12),
-            shinydashboard::valueBoxOutput("snetBox3", width = 12)
-          )
-        ),
-        shinydashboard::box(
-          title = "Hubs in Similarity Citation Network",
-          status = "info",
-          solidHeader = TRUE,
-          collapsible = TRUE,
-          width = 9,
-          DT::dataTableOutput('tableSnet') %>% withSpinner()
+          shinydashboard::valueBoxOutput("snetBox2", width = 6),
+          shinydashboard::valueBoxOutput("snetBox3", width = 6)
         )
       ),
       fluidRow(
         shinydashboard::box(
           width = 6,
+          height = 500,
           status = "success",
           solidHeader = TRUE,
           collapsible = TRUE,
@@ -395,6 +419,7 @@ body <- dashboardBody(tabsetPanel(
         ),
         shinydashboard::box(
           width = 6,
+          height = 500,
           status = "warning",
           solidHeader = TRUE,
           collapsible = TRUE,
@@ -402,47 +427,62 @@ body <- dashboardBody(tabsetPanel(
           plotlyOutput("snet.dis") %>% withSpinner()
         )
       ),
+      fluidRow(
+        shinydashboard::box(
+          title = "Hubs in Similarity Citation Network",
+          status = "info",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          width = 12,
+          
+          #DT::dataTableOutput('tableSnet') %>% withSpinner()
+          div(style = 'overflow-x: scroll', DT::dataTableOutput('tableSnet') %>% withSpinner())
+        )
+      ),
       
       tags$br(),
       fluidRow(
         shinydashboard::box(
-          width = 2,
-          status = "warning",
-          solidHeader = TRUE,
-          selectInput(
-            inputId = "snet.show",
-            selected = NULL,
-            multiple = T,
-            label = h4("Input target PMID for Visulization"),
-            choices = NULL
+          width = 12,
+          shinydashboard::box(
+            width = 2,
+            status = "warning",
+            solidHeader = TRUE,
+            selectInput(
+              inputId = "snet.show",
+              selected = NULL,
+              multiple = T,
+              label = h4("Input target PMID for Visulization"),
+              choices = NULL
+            ),
+            tags$p(
+              "!Notice: This can't be null. Push the 'START/UPDATE' button if it's null."
+            ),
+            div(
+              id = "snetButton",
+              bsButton(
+                inputId = "snetButton",
+                label = "Visualize",
+                icon = icon("eye"),
+                style = "danger"
+              )
+            ),
+            tags$br(),
+            downloadLink("snet.download", "        Download Full Map"),
+            tags$br(),
+            tags$br(),
+            div(img(src = "legends.png",
+                    #height = 200,
+                    width = 100))
           ),
-          tags$p("!Notice: This can't be null. Push the 'START/UPDATE' button if it's null."),
-          div(
-            id = "snetButton",
-            bsButton(
-              inputId = "snetButton",
-              label = "Visualize",
-              icon = icon("eye"),
-              style = "danger"
-            )
-          ),
-          tags$br(),
-          downloadLink("snet.download", "        Download Full Map"),
-          tags$br(),
-          tags$br(),
-          div(img(
-            src = "legends.png",
-            #height = 200,
-            width = 100
-          ))
-        ),
-        shinydashboard::box(
-          title = "Visualization of Similarity Citation Network",
-          width = 10,
-          status = "primary",
-          solidHeader = TRUE,
-          collapsible = TRUE,
-          visNetworkOutput("snet.result", width = "100%", height = "1080px") %>% withSpinner()
+          shinydashboard::box(
+            title = "Visualization of Similarity Citation Network",
+            width = 10,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            visNetworkOutput("snet.result", width = "100%", height = "1080px") %>% withSpinner()
+          )
         )
       )
     )
@@ -454,27 +494,19 @@ body <- dashboardBody(tabsetPanel(
       fluidRow(
         shinydashboard::box(
           title = "Summary of MeSH Map",
-          width = 3,
-          #status = "danger",
+          width = 4,
+          height = 500,
+          status = "danger",
           solidHeader = TRUE,
           collapsible = TRUE,
-          fluidRow(
-            shinydashboard::valueBoxOutput("mnetBox2", width = 12),
-            shinydashboard::valueBoxOutput("mnetBox3", width = 12)
-          )
+          
+          shinydashboard::valueBoxOutput("mnetBox2", width = 12),
+          shinydashboard::valueBoxOutput("mnetBox3", width = 12)
+          
         ),
         shinydashboard::box(
-          title = "Hubs in MeSH Map",
-          status = "info",
-          solidHeader = TRUE,
-          collapsible = TRUE,
-          width = 9,
-          DT::dataTableOutput('tableMnet') %>% withSpinner()
-        )
-      ),
-      fluidRow(
-        shinydashboard::box(
-          width = 6,
+          width = 8,
+          height = 500,
           status = "success",
           solidHeader = TRUE,
           collapsible = TRUE,
@@ -483,46 +515,63 @@ body <- dashboardBody(tabsetPanel(
         )
       ),
       
+      fluidRow(
+        shinydashboard::box(
+          title = "Hubs in MeSH Map",
+          status = "info",
+          solidHeader = TRUE,
+          collapsible = TRUE,
+          width = 12,
+          
+          #DT::dataTableOutput('tableMnet') %>% withSpinner()
+          div(style = 'overflow-x: scroll', DT::dataTableOutput('tableMnet') %>% withSpinner())
+        )
+      ),
+      
+      
       tags$br(),
       fluidRow(
         shinydashboard::box(
-          width = 2,
-          status = "warning",
-          solidHeader = TRUE,
-          selectInput(
-            inputId = "mnet.show",
-            selected = NULL,
-            multiple = T,
-            label = h4("Input target MeSH"),
-            choices = NULL
+          width = 12,
+          shinydashboard::box(
+            width = 2,
+            status = "warning",
+            solidHeader = TRUE,
+            selectInput(
+              inputId = "mnet.show",
+              selected = NULL,
+              multiple = T,
+              label = h4("Input target MeSH"),
+              choices = NULL
+            ),
+            tags$p(
+              "!Notice: This can't be null. Push the 'START/UPDATE' button if it's null."
+            ),
+            div(
+              id = "mnetButton",
+              bsButton(
+                inputId = "mnetButton",
+                label = "Visualize",
+                icon = icon("eye"),
+                style = "danger"
+              )
+            ),
+            tags$br(),
+            downloadLink("mnet.download", "        Download Full Map"),
+            tags$br(),
+            tags$br(),
+            div(img(src = "legends.png",
+                    #height = 200,
+                    width = 100))
           ),
-          tags$p("!Notice: This can't be null. Push the 'START/UPDATE' button if it's null."),
-          div(
-            id = "mnetButton",
-            bsButton(
-              inputId = "mnetButton",
-              label = "Visualize",
-              icon = icon("eye"),
-              style = "danger"
-            )
-          ),
-          tags$br(),
-          downloadLink("mnet.download", "        Download Full Map"),
-          tags$br(),
-          tags$br(),
-          div(img(
-            src = "legends.png",
-            #height = 200,
-            width = 100
-          ))
-        ),
-        shinydashboard::box(
-          title="Visualization of MeSH Map",
-          width = 10,
-          status = "primary",
-          solidHeader = TRUE,
-          collapsible = TRUE,
-          visNetworkOutput("mnet.result", width = "100%", height = "1080px") %>% withSpinner()
+          shinydashboard::box(
+            title = "Visualization of MeSH Map",
+            width = 10,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            visNetworkOutput("mnet.result", width = "100%", height = "1080px") %>% withSpinner()
+          )
         )
       )
     )

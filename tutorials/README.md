@@ -2,16 +2,14 @@
 
 [**CORACLE** (COVID-19 liteRAture CompiLEr)](https://datahub.shinyapps.io/CORACLE/): A web-based shiny app for efficient tracking and extraction of pertinent clinical and mechanistic insight from the growing avalanche of literature related to SARS-CoV-2 virus and COVID-19 disease.
 
-Website @[**shinyapps.io**](https://datahub.shinyapps.io/CORACLE/)
-
-Preprint version @[**BioRxiv**]()
+Website @[**shinyapps.io**](https://datahub.shinyapps.io/CORACLE/): https://datahub.shinyapps.io/CORACLE/
 
 * [Written tutorials](#written-tutorials)
 * [Video tutorials](#video-tutorials)
 
 ## Written tutorials
 
-To activate CORACLE, please press the “START” button on the upper left. It may take several minutes for CORACLE to load the data the first time you use it. If the data loading is completed, when the red “START” button is clickable, the button will be updated to green "UPDATE" button.
+To activate CORACLE, please press the “START” button on the upper left. It may take several minutes for CORACLE to load the data the first time you start the application. If the data loading is completed, when the red “START” button is clickable, the button will be updated to green "UPDATE" button.
 
 ### Part 1 – Search Functions
 
@@ -19,13 +17,13 @@ To activate CORACLE, please press the “START” button on the upper left. It m
 
 ##### 1. Introduction
 
-CORACLE is a daily-updated and interactive R Shiny app, with its background literature data collected and analyzed from PubMed and LitCovid databases, by Python and R programs. The first version of CORACLE is based on the daily updated publication list from LitCovid and their citations in PubMed, and provides in its most rudimentary forms: 1) fast highlight of emerging research topics, including identification of popular articles, keywords, and journals; 2) personalized extraction of the literature of interest by multilevel filters and customized PMID (PubMed Identifier) lists, combined with citation relationship; 3) prioritize highly related publications by direct citation map and indirect similarity citation network; 4) understand the relationships among research areas (keywords). We provide both web-based version as an easy-access, user-friendly interface, and a downloadable desktop solutions for the more experienced R user. The latter will offer a faster search functionality. If you find our tools useful, please acknowledge us by citing PMID: XXXXXXX. 
+CORACLE is a daily-updated and interactive R Shiny app, with its background literature data collected and analyzed from PubMed and LitCovid databases, by Python and R programs. The first version of CORACLE is based on the daily updated publication list from LitCovid and their citations in PubMed, and provides in its most rudimentary forms: 1) fast extraction of emerging research topics, including identification of key articles, keywords, and journals; 2) personalized extraction of the literature of interest by multilevel filters and customized PMID (PubMed Identifier) lists, combined with citation relationship; 3) prioritize highly related publications by direct citation map and indirect similarity citation network; 4) understand the relationships among research areas (keywords). We provide both web-based version as an easy-access, user-friendly interface, and a downloadable desktop solutions for the more experienced R user. The latter will offer a faster search functionality. If you find our tools useful, please acknowledge us by citing PMID: XXXXXXX. 
 
  The Search-function available in the left panel (black background) consists of five major filter blocks; publication type, country, language, MeSH (Medical Subject Headings) term, and customized PMID list. The functionality of these, and how to set up the each respective search is outlined in detail below. These five filters can be used jointly to set up personalized searches by inputting multiple values in each filter, either as a intersection filter (AND) or union filter (OR) at the bottom left. The default relationships are AND for the search terms publication dates, type, country, language, and MeSH, and OR for customized PMID list/input. Please note that the output results will be updated first after clicking the "START/UPDATE" button on the top of the filter block.
 
 ##### 2. Range of Publication Dates
 
-This filter consists of a slider, which delimits the range for the official date of publications in the PubMed database to be included in your compilation. The default setting for the range of Publication Dates is from Jan 18, 2020 (the earliest date of literature in the LitCovid database) to the latest date of CORACLE.
+This filter consists of a slider, which delimits the range for the official date of publications in the PubMed database to be included in your compilation. The default setting for the range of Publication Dates is from Jan 18, 2020 (the earliest date of literature in the LitCovid database) to the latest update of CORACLE (generally today’s date).
 
 ##### 3. Publication Types
 
@@ -33,7 +31,7 @@ This filter offers the option of fine-tuning the type of publication to be inclu
 
 ##### 4. Journals
 
-This filter function provides the option of selecting a subset of journals from the >2500 journal names which have published COVID-19 related papers. Users can input their specific journal names of interest by free-text with union relationships. The indicator of journal names will be displayed in a drop-down menu when inputting the journal names. Users need to press “enter” (the Enter key on the keyboard) between each journal name input. Only journals in the database could be inputted. The default option is the union of all journals.
+This filter function provides the option of selecting a subset of journals from the >2500 journal names which have published COVID-19 related papers. Users can input their specific journal names of interest by free-text with union relationships. The indicator of journal names will be displayed in a drop-down menu when inputting the journal names. Users need to press the Enter key on the keyboard between each journal name input. Only journals in the database could be inputted. The default option is the union of all journals.
 
 ##### 5. Countries
 
@@ -45,7 +43,7 @@ The fifth filter refers to publication language, 17 languages included as of Jun
 
 ##### 7. MeSH/Keywords
 
-The MeSH/Keywords filter consists of two sub-filters with the default relationships set as intersection (AND) between them. In the first sub-filter entitled “Enter MeSH(s) [OR]”, multiple MeSH terms could be inputted with the relationship set to union (OR), while the second sub-filter entitled “Enter MeSH(s) [AND]”, additional MeSH terms can be inputted with the relationship of intersection (AND). The final output from the simultaneous (AND) and (OR) MeSH/Keywords filtering facilitates a more advanced keywords search. For example, if users would like to search publications related to ACE2 in children only, search terms such as "COVID-19", "ACE2", and "SARS” could be added in “Enter MeSH(s) [OR]”, and “child” in “Enter MeSH(s) [AND]”. The default of “Enter MeSH(s) [OR]” is all keywords, and “Enter MeSH(s) [AND]” is null, so the overall default of “MeSH/Keywords” is all keywords.
+The MeSH/Keywords filter consists of two sub-filters with the default relationships set as intersection (AND) between them. In the first sub-filter entitled “Enter MeSH(s) [OR]”, multiple MeSH terms could be inputted with the relationship set to union (OR), while the second sub-filter entitled “Enter MeSH(s) [AND]”, additional MeSH terms can be inputted with the relationship of intersection (AND). The final output from the simultaneous (AND) and (OR) MeSH/Keywords filtering facilitates a more advanced keywords search. For example, if users would like to search publications related to ACE2 in **COVID-19**, **SARS-CoV-2** or **SARS**, search terms such as **"COVID-19"**, **"Syndromesevere acute respiratory syndrome coronavirus 2"** or **"Severe Acute Respiratory Syndrome"** could be added in “Enter MeSH(s) [OR]”, and **angiotensin converting enzyme 2** in “Enter MeSH(s) [AND]”. The default of “Enter MeSH(s) [OR]” is all keywords, and “Enter MeSH(s) [AND]” is null, so the overall default of “MeSH/Keywords” is all keywords. Please note that MeSH term names are the official term names from [MeSH database](https://www.ncbi.nlm.nih.gov/mesh). User could search MeSH term names by fuzzy text search in [MeSH database](https://www.ncbi.nlm.nih.gov/mesh).
 
 ##### 8. Customized PMID
 
@@ -100,23 +98,23 @@ The CITATION MAP tab outputs selected publications, as defined by the user in th
 
 ##### 16. CITATION MAP – Summary
 
-On the top left of the CITATION MAP tab, there are two value boxes: a yellow box displaying the number of publications in the citation map (nodes), and a green box displaying the number of citation pairs (directed edges). Click of the “START/UPDATE” button on the left black filter in search functions (Part 1) is required to fully update the results of “CITATION MAP” tab.
+On the top of the CITATION MAP tab, there are two value boxes: a yellow box displaying the number of publications in the citation map (nodes), and a green box displaying the number of citation pairs (directed edges). Please press the “START/UPDATE” button in the search panel to the left (black) to update the results of  the “CITATION MAP” tab.
 
-##### 17. Hubs in Citation Map
-
-The panel Hubs in Citation Map displays publications that are highly connected in terms of the citation connectivity. It includes 7 columns: PMID, In, Out and Total degree, Title, LitCovid (value is true if the publication is included in LitCovid), and Global Filter (value is true if the publication is selected by the user in the search panel to the left [black]), with the default order as descending Total degree of connectivity.
-
-##### 18. Central Publications
+##### 17. Central Publications
 
 The Central Publications output consists of a scatter plot, with the x-axis showing the In-degree distribution (number of references, log10 scale) and the y-axis showing the Out-degree distribution (number of citations by other publications, log10 scale). Each scatter point is a publication. When the in- and out-degree values are moused-over, the PMID, and title of the publication will be shown. Publications with higher out-degree score are highly cited papers, whereas publications with higher in-degree scores generally indicate more of a review-type paper. 
 
-##### 19. Degree Distribution
+##### 18. Degree Distribution
 
 The degree distribution is a common topological analysis in network biology. This CORACLE output consists of a scatter plot of publications (blue point) with the x-axis showing the total degree distribution (sum of in-and out-degree) of the network of the articles selected in the left (black) panel, and the y-axis displaying the corresponding probability distribution of the total degree distribution (log10 scale). The linear regression between x and y is displayed in orange. A power-law distribution indicates a scale-free feature of the network. 
 
+##### 19. Hubs in Citation Map
+
+The panel Hubs in Citation Map displays publications that are highly connected in terms of the citation connectivity. It includes 7 columns: PMID, In, Out and Total degree, Title, LitCovid (value is true if the publication is included in LitCovid), and Global Filter (value is true if the publication is selected by the user in the search panel to the left [black]), with the default order as descending Total degree of connectivity.
+
 ##### 20. Visualization of Citation Map
 
-The bottom panel of the CITATION MAP tab facilitates visualization of the citation network, with publications represented by nodes and each reference being represented by an edge. Input the PMIDs of interest in the box and press the "Visualize" button. Please note that only the top 1000 edges will be shown. If you wish to visualize the full citation map, please press the Download Full Map text in blue to download the full citation map, and draw it by your local software of choice, such as Cytoscape or R. Please note that the default input of the text input box "Input target PMID for Visualization" is the 3 most highly connected nodes. Users could input customized newline-separated lists of PMID (i.e., press "Enter" (the Enter key on the keyboard) between each input), and push the “Visualize” button anew to display the updated network on the right. Please note that if this text input box is empty, the user needs to push the "START/UPDATE" button in the global filter block. User-inputted target PMIDs are indicated as red nodes. Green node color indicates publications included in the LitCovid database or COVID-19 related literature, and grey node color indicates other publications cited by the COVID-19 literature. A mouse-click on a node in the network will display the title of the publication, and a mouse-click of the title will provide a link to the article in the PubMed database. 
+The bottom panel of the CITATION MAP tab facilitates visualization of the citation network, with publications represented by nodes and each reference being represented by an edge. Input the PMIDs of interest in the box and press the "Visualize" button. Please note that only the top 1000 edges will be shown. If you wish to visualize the full citation map, please press the Download Full Map text in blue to download the full citation map, and draw it by your local software of choice, such as Cytoscape or R. Please note that the default input of the text input box "Input target PMID for Visualization" is the 3 most highly connected nodes. Users could input customized newline-separated lists of PMID (i.e., press the Enter key on the keyboard) between each input), and push the “Visualize” button anew to display the updated network on the right. Please note that if this text input box is empty, the user needs to push the "START/UPDATE" button in the global filter block. User-inputted target PMIDs are indicated as red nodes. Green node color indicates publications included in the LitCovid database or COVID-19 related literature, and grey node color indicates other publications cited by the COVID-19 literature. A mouse-click on a node in the network will display the title of the publication, and a mouse-click of the title will provide a link to the article in the PubMed database. 
 
 #### *SIMILARITY CITATION NETWORK tab*
 
@@ -124,23 +122,23 @@ The SIMILARITY CITATION NETWORK tab outputs networks of the publications (select
 
 ##### 21. SIMILARITY CITATION NETWORK - Summary
 
-The top left panel of the SIMILARITY CITATION NETWORK tab contains two value boxes: a yellow box displaying the number of publications in the similarity citation network (nodes), and a green box displaying the number of publication pairs with more than 3 shared citations (undirected edges). 
+The top panel of the SIMILARITY CITATION NETWORK tab contains two value boxes: a yellow box displaying the number of publications in the similarity citation network (nodes), and a green box displaying the number of publication pairs with more than 3 shared citations (undirected edges). 
 
-##### 22. Hubs in Similarity Citation Network
-
-The Hubs in Similarity Citation Network panel displays a list of publications ranked according to their degree of interconnectedness with other publications. Publications with a high degree of connectedness, i.e., a hub, are often seminal or breakthrough original research papers, or review paper. The Hubs in Similarity Citation Network table consists of 5 columns; PMID, Degree, Title, LitCovid (value is "true" if the publication is included in LitCovid), and Global Filter (value is true if the publication is selected in the search block to the left [black]), with the default order as descending Degree.
-
-##### 23. Distribution of Shared Citations
+##### 22. Distribution of Shared Citations
 
 The Distribution of Shared Citations panel is a bar plot with the x-axis displaying the number of shared citations between two publications (termed a publication pair), representing the weight of edges, and the y-axis displaying the number of publication pairs for each weight. The higher the edge weight, the stronger two publications are related. 
 
-##### 24. Degree Distribution
+##### 23. Degree Distribution
 
-Similar to the Degree Distribution panel in the CITATION MAP tab, the Degree Distribution panel in the SIMILARITY CITATION NETWORK tab consists of a scatter plot of publications (blue point) with the x-axis showing the degree distribution (total connections), and the y-axis displaying the corresponding probability distribution of the total degree distribution. The difference is that here the total connection refers to number of linking publications with undirected edgess, whereas in the CITATION MAP Degree Distribution, the total connections refer to the sum of direct citations (in-degree) and cited by other works (out-degree). The correlation between x and y is displayed in orange. A power-law relationship indicates a scale-free feature of the network.
+Similar to the Degree Distribution panel in the CITATION MAP tab, the Degree Distribution panel in the SIMILARITY CITATION NETWORK tab consists of a scatter plot of publications (blue point) with the x-axis showing the degree distribution (total connections), and the y-axis displaying the corresponding probability distribution of the total degree distribution. The difference is that here the total connection refers to number of linking publications with undirected edgess, whereas in the CITATION MAP Degree Distribution, the total connections refer to the sum of direct citations (in-degree) and cited by other publications (out-degree). The correlation between x and y is displayed in orange. A power-law (linear) relationship indicates a scale-free feature of the network.
+
+##### 24. Hubs in Similarity Citation Network
+
+The Hubs in Similarity Citation Network panel displays a list of publications ranked according to their degree of interconnectedness with other publications. Publications with a high degree of connectedness, i.e., a hub, are often seminal or breakthrough original research papers, or review paper. The Hubs in Similarity Citation Network table consists of 5 columns; PMID, Degree, Title, LitCovid (value is "true" if the publication is included in LitCovid), and Global Filter (value is true if the publication is selected in the search block to the left [black]), with the default order as descending Degree.
 
 ##### 25. Visualization of Similarity Citation Network
 
-The bottom panel of the SIMILARITY CITATION NETWORK tab facilitates visualization of the citation network, with publications represented by nodes and each edge representing at least 3 shared reference between the publication pairs. Mouse-over the edge will display the number of shared publications between the pair. Input the PMIDs of interest in the box and press the "Visualize" button. Please note that only the top 1000 edges will be shown. If you wish to visualize the full citation map, please press the Download Full Map text in blue to download the full citation map, and draw it by your local software of choice, such as Cytoscape or R. Please note that the default input of the text input box "Input target PMID for Visualization" is the 3 most highly connected nodes. Users could input customized newline-separated lists of PMID (i.e., press "Enter" (the Enter key on the keyboard) between each input), and push the “Visualize” button anew to display the updated network on the right. Please note that if this text input box is empty, the user needs to push the "START/UPDATE" button in the global filter block. User-inputted target PMIDs are indicated as red nodes. Green node color indicates publications included in the LitCovid database or COVID-19 related literature, and grey node color indicates other publications cited by the COVID-19 literature. A mouse-click on a node in the network will display the title of the publication, and a mouse-click of the title will provide a link to the article in the PubMed database.
+The bottom panel of the SIMILARITY CITATION NETWORK tab facilitates visualization of the citation network, with publications represented by nodes and each edge representing at least 3 shared reference between the publication pairs. Mouse-over the edge will display the number of shared publications between the pair. Input the PMIDs of interest in the box and press the "Visualize" button. Please note that only the top 1000 edges will be shown. If you wish to visualize the full citation map, please press the Download Full Map text in blue to download the full citation map, and draw it by your local software of choice, such as Cytoscape or R. Please note that the default input of the text input box "Input target PMID for Visualization" is the 3 most highly connected nodes. Users could input customized newline-separated lists of PMID (i.e., press the Enter key on the keyboard between each input), and push the “Visualize” button anew to display the updated network on the right. Please note that if this text input box is empty, the user needs to push the "START/UPDATE" button in the global filter block. User-inputted target PMIDs are indicated as red nodes. Green node color indicates publications included in the LitCovid database or COVID-19 related literature, and grey node color indicates other publications cited by the COVID-19 literature. A mouse-click on a node in the network will display the title of the publication, and a mouse-click of the title will provide a link to the article in the PubMed database.
 
 #### *MeSH MAP tab*
 
@@ -150,17 +148,17 @@ The MeSH MAP tab outputs network analyses of keyword annotations for the selecte
 
 On the top left of the MeSH MAP tab, two value boxes are displayed: a yellow box showing the number of MeSH terms annotated by the selected publications (nodes), and a green box showing the number of MeSH term pairs with more than 3 shared publications in the full CORACLE database of COVID-19 related publications (undirected edges). 
 
-##### 27. Hubs in MeSH Map
-
-The panel Hubs in MeSH Map displays MeSH terms that are highly connected in terms of the the number of publications they are annotated to in the selected publications. The table includes 3 columns, MeSH, Degree, and Selected (value is true if the MeSH is annotated by the publications selected in the search block to the left[black]), with the default order as descending Degree.
-
-##### 28. Distribution of Shared Publications
+##### 27. Distribution of Shared Publications
 
 The Distribution of Shared Publications panel " is a bar plot with the x-axis displaying the number of shared publications for each pair of MeSH terms, representing the wiehgt of the edges, and the y-axis displaying the number of MeSH pairs for each weight. The higher the edge weight, the stronger two MeSH term keywords are related in the COVID-19 literature.
 
+##### 28. Hubs in MeSH Map
+
+The panel Hubs in MeSH Map displays MeSH terms that are highly connected in terms of the the number of publications they are annotated to in the selected publications. The table includes 3 columns, MeSH, Degree, and Selected (value is true if the MeSH is annotated by the publications selected in the search block to the left[black]), with the default order as descending Degree.
+
 ##### 29. Visualization of MeSH Map
 
-The bottom panel of the MeSH MAP tab facilitates visualization of the MeSH term similarity network, with MeSH term represented by nodes and each edge representing at least 3 shared publications for the respective MeSH pair. The name of the MeSH term is displayed by each node when zoomed in. Mouse-over the edge will display the number of shared publications between the pair. Input the MeSH terms of interest in the box and press the "Visualize" button. Please note that only the top 1000 edges will be shown. If you wish to visualize the full MeSH map, please press the Download Full Map text in blue to download the full citation map, and draw it by your local software of choice, such as Cytoscape or R. Please note that the default input of the text input box "Input target MeSH term for Visualization" is the 3 most highly connected nodes. Users could input customized newline-separated lists of MeSH (i.e., press "Enter" (the Enter key on the keyboard) between each input), and push the “Visualize” button anew to display the updated network on the right. Please note that if this text input box is empty, the user needs to push the "START/UPDATE" button in the global filter block. User-inputted target MeSHs are indicated as red nodes. Green node color indicates MeSH terms included in the LitCovid database or COVID-19 related literature, and grey node color indicates other publications cited by the COVID-19 literature. 
+The bottom panel of the MeSH MAP tab facilitates visualization of the MeSH term similarity network, with MeSH term represented by nodes and each edge representing at least 3 shared publications for the respective MeSH pair. The name of the MeSH term is displayed by each node when zoomed in. Mouse-over the edge will display the number of shared publications between the pair. Input the MeSH terms of interest in the box and press the "Visualize" button. Please note that only the top 1000 edges will be shown. If you wish to visualize the full MeSH map, please press the Download Full Map text in blue to download the full citation map, and draw it by your local software of choice, such as Cytoscape or R. Please note that the default input of the text input box "Input target MeSH term for Visualization" is the 3 most highly connected nodes. Users could input customized newline-separated lists of MeSH (i.e., press the Enter key on the keyboard between each input), and push the “Visualize” button anew to display the updated network on the right. Please note that if this text input box is empty, the user needs to push the "START/UPDATE" button in the global filter block. User-inputted target MeSHs are indicated as red nodes. Green node color indicates MeSH terms included in the LitCovid database or COVID-19 related literature, and grey node color indicates other publications cited by the COVID-19 literature. 
 
 ##### Data Table
 
@@ -176,77 +174,7 @@ Users need to install Rstudio (free desktop version available at https://rstudio
 
 ### Part 4 - Examples
 ##### Tracking ACE2 in COVID-19
-ACE2 is one of the emerging research topics in COVID-19. Users could the first setup the date range from the earliest to the latest and input ace2 in the "Enter MeSH(s) [OR]" input, and select all related MeSHs by text matching (As in the following table). Besides, users could download a PMID list from PubMed and input into the “Enter PMID list” with the default “Customized PMID rules" of OR (union). The example file of ACE2 related PMID list is at https://raw.githubusercontent.com/clisweden/coracle_data/master/acelist20200506.csv. After pushing the "START/UPDATE” button, all ACE2 related publications, their citations, related publications with similar citations, MeSH will be displayed.
-
-**Table**. Possible MeSH terms for ACE/ACE2 research.
-
-| **MeSH Terms**                                               |
-| ------------------------------------------------------------ |
-| **ace**                                                      |
-| **ace 2**                                                    |
-| **ace inh/arbs**                                             |
-| **ace inhibitor**                                            |
-| **ace inhibitors**                                           |
-| **ace inhibitors/angiotensin receptor blockers  (aceis/arbs** |
-| **ace-2**                                                    |
-| **ace-2 receptor**                                           |
-| **ace-2 receptors**                                          |
-| **ace-2-r**                                                  |
-| **ace-2, angiotensin-converting enzyme 2**                   |
-| **ace-angiotensin-converting enzyme**                        |
-| **ace-i, angiotensin-converting enzyme inhibitor**           |
-| **ace-inhibition**                                           |
-| **ace-inhibitors**                                           |
-| **ace2**                                                     |
-| **ace2 blocker**                                             |
-| **ace2 expression**                                          |
-| **ace2 gene**                                                |
-| **ace2 negative**                                            |
-| **ace2 receptor**                                            |
-| **ace2 receptor.**                                           |
-| **ace2 receptors**                                           |
-| **ace2 transcriptome**                                       |
-| **ace2 variants**                                            |
-| **ace2-b0at1**                                               |
-| **ace2, acute kidney injury**                                |
-| **ace2, angiotensin converting enzyme 2**                    |
-| **ace2, angiotensin converting enzyme-2**                    |
-| **ace2, angiotensin receptor 2**                             |
-| **ace2, angiotensin-converting enzyme 2**                    |
-| **ace2, cardiovascular disease, covid-19**                   |
-| **ace2.**                                                    |
-| **acei**                                                     |
-| **acei or arb**                                              |
-| **acei, angiotensin converting enzyme inhibitor**            |
-| **acei/arb**                                                 |
-| **acei/arbs**                                                |
-| **aceis, angiotensin converting enzyme  inhibitors**         |
-| **aceis/arbs**                                               |
-| **acetaminophen**                                            |
-| **acetazolamide**                                            |
-| **acetylsalicylic acid**                                     |
-| **angiotensin converting enzyme 2 (ace2**                    |
-| **angiotensin converting enzyme ii (ace2**                   |
-| **angiotensin-converting enzyme 2 (ace-2**                   |
-| **angiotensin-converting enzyme 2 (ace2**                    |
-| **angiotensin-converting enzyme 2, ace2**                    |
-| **angiotensin-converting enzyme inhibitor (acei**            |
-| **angiotensin-converting enzyme inhibitors  (aceis**         |
-| **angiotensin-converting enzyme inhibitors, acei**           |
-| **angiotensin-converting enzyme-2 (ace2**                    |
-| **coronavirus, sars-cov-2, covid-19, ace 2,  neurotoxicity, brain, seizures.** |
-| **covid-19, smoking, ace2, sars-cov2, copd**                 |
-| **expression of ace2**                                       |
-| **hace-2**                                                   |
-| **hace2 transgenic mice**                                    |
-| **hace2-ki/nifdc**                                           |
-| **histone deacetylases**                                     |
-| **home spaces**                                              |
-| **hormonal contraceptives**                                  |
-| **human ace2 transgenic mouse**                              |
-| **human angiotensin-converting enzyme 2 (ace2**              |
-| **humen ace2**                                               |
-| **rhace2**                                                   |
+ACE2 is one of the emerging research topics in COVID-19. Users could the first setup the date range from the earliest to the latest and input ace2 in the "Enter MeSH(s) [OR]" input, and select or input the formal MeSH term [**angiotensin converting enzyme 2**](https://www.ncbi.nlm.nih.gov/mesh/67413524). Besides, users could download a PMID list from PubMed and input into the “Enter PMID list” with the default “Customized PMID rules" of OR (union). The example file of ACE2 related PMID list is [here](https://raw.githubusercontent.com/clisweden/coracle_data/master/pmid-ace2andcovid19_20200703.txt), which is generated by search ACE2 AND COVID-19 in PubMed on 2020-07-03. After pushing the "START/UPDATE” button, all ACE2 related publications, their citations, related publications with similar citations, MeSH will be displayed.
 
 ## Video tutorials
 
@@ -255,35 +183,3 @@ ACE2 is one of the emerging research topics in COVID-19. Users could the first s
 The How to Start **CORACLE** video series will take you from **General Search** to **Customized Search**, as well as **CORACLE Desktop**. Watch the complete tutorial, or jump to a specific chapter by clicking a link below. The entire tutorial is XX minutes long. Download the slides and exercises [here](https://github.com/clisweden/coracle_shiny/tree/master/tutorials).
 
 [<img src="https://img.youtube.com/vi/KGrZAJkhmjc/hqdefault.jpg" width="50%">](https://youtu.be/KGrZAJkhmjc)
-
-
-
-| Part 1 - Search Functions | Part 2 - Output Functions                        | Part 3 - How to<br/>run CORACLE locally <br>from your computer | Part 4 - Examples          |
-| :------------------------ | :----------------------------------------------- | :----------------------------------------------------------- | :------------------------- |
-| 1. Introduction           | STATISTICS tab                                   | GitHub Download                                              | COVID-19 research hotspots |
-| 2. Publication Dates      | 9. STATISTICS - Summary                          | Installation                                                 | Tracking ACE2 in COVID-19  |
-| 3. Publication Types      | 10. Publication Trend                            | Run                                                          |                            |
-| 4. Journals               | 11. MeSH Trend                                   |                                                              |                            |
-| 5. Countries              | 12. Country Trend                                |                                                              |                            |
-| 6. Languages              | 13. Language Trend                               |                                                              |                            |
-| 7. MeSH/Keywords          | 14. Journal Trend                                |                                                              |                            |
-| 8. Customised PMID        | 15. Popular Publications                         |                                                              |                            |
-|                           | ***CITATION MAP tab***                           |                                                              |                            |
-|                           | 16. CITATION MAP - Summary                       |                                                              |                            |
-|                           | 17. Hubs in Citation Map                         |                                                              |                            |
-|                           | 18. Central Publications                         |                                                              |                            |
-|                           | 19. Degree Distribution                          |                                                              |                            |
-|                           | 20. Visulization of Citation Map                 |                                                              |                            |
-|                           | ***SIMILARITY CITATION NETWORK tab***            |                                                              |                            |
-|                           | 21. Summary                                      |                                                              |                            |
-|                           | 22. Hubs in Similarity Citation Network          |                                                              |                            |
-|                           | 23. Distribution of Shared Citations             |                                                              |                            |
-|                           | 24. Degree Distribution                          |                                                              |                            |
-|                           | 25. Visualization of Similarity Citation Network |                                                              |                            |
-|                           | ***MeSH MAP tab***                               |                                                              |                            |
-|                           | 26. MeSH Map - Summary                           |                                                              |                            |
-|                           | 27. Hubs in MeSH Map                             |                                                              |                            |
-|                           | 27. Distribution of Shared Citations             |                                                              |                            |
-|                           | 29. Visulization of MeSH Map                     |                                                              |                            |
-
-## 
