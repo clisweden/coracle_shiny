@@ -114,7 +114,7 @@ sidebar <- dashboardSidebar(
     )
   ),
   #tags$hr(),
-  
+
   ## ~1.7 MeSH-----
   selectInput(
     inputId = "mesh.or",
@@ -125,6 +125,7 @@ sidebar <- dashboardSidebar(
     label = "Enter MeSH(s) [OR]",
     choices = raw.mesh.all
   ),
+  #"Enter MeSH(s) [OR]",    
 
   selectInput(
     inputId = "mesh.and",
@@ -132,6 +133,17 @@ sidebar <- dashboardSidebar(
     multiple = T,
     label = "Enter MeSH(s) [AND]",
     choices = raw.mesh.all
+  ),
+  # link to MeSH database
+  tags$p(
+    h5(
+    a(
+      strong("-->Search term name in MeSH Database"),
+      #height = 40,
+      href = "https://www.ncbi.nlm.nih.gov/mesh"
+      #title = "",
+      #target = "_blank"
+    ))
   ),
   ## ~1.8 Customized PMID-----
   ### Rules of customized PMID with other filter
