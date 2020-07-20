@@ -62,7 +62,7 @@ sidebar <- dashboardSidebar(
     label = "Range of Publication Dates",
     min = min(pmid.info$date),
     max = max(pmid.info$date),
-    value = c(min(pmid.info$date),
+    value = c(as.Date("2020-01-01"),
               max(pmid.info$date))
   ),
   ## ~1.3 Publication type-----
