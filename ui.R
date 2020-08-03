@@ -60,7 +60,7 @@ sidebar <- dashboardSidebar(
   sliderInput(
     "dateRange",
     label = "Range of Publication Dates",
-    min = min(pmid.info$date),
+    min = as.Date("2020-01-20"),
     max = max(pmid.info$date),
     value = c(as.Date("2020-01-01"),
               max(pmid.info$date))
