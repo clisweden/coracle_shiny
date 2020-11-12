@@ -517,12 +517,12 @@ shinyServer(function(input, output, session) {
       ) %>% layout(
         xaxis = list(
           type = "log",
-          title = "In-Degree",
+          title = "Out-Degree (Cited)",
           titlefont = plotlyf
         ),
         yaxis = list(
           type = "log",
-          title = "Out-Degree",
+          title = "In-Degree (Number of Citations)",
           titlefont = plotlyf
         )
       )
@@ -576,7 +576,7 @@ shinyServer(function(input, output, session) {
       DT::datatable(
         tableCnet[1:min(nrow(tableCnet), 100),] %>% .[order(.$total, .$selected, decreasing = T), ],
         extensions = 'Buttons',
-        colnames=c("PMID","In-degree","Out-degree","Total-
+        colnames=c("PMID","Out-degree","In-degree","Total-
                    
                    degree","Title","LitCovid","Global Filter"),
         options = list(
@@ -600,6 +600,8 @@ shinyServer(function(input, output, session) {
         subset(k.edges, from %in% pmid.show |
                  to %in% pmid.show)
       k2 <- data.frame(k2) %>% .[1:min(1000, nrow(k2)),]
+      k2 <- k2[,2:1]
+      colnames(k2)=c("from","to")
       net.ids <- base::union(k2[, 1], k2[, 2])
 
       k.nodes <-

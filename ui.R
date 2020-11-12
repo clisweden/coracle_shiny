@@ -224,27 +224,27 @@ body <- dashboardBody(tabsetPanel(
         collapsible = TRUE,
         width = 6,
         height = 550,
-        tabsetPanel(
-          tabPanel(
-            "MeSH Wordcloud",
-            column(
-              width = 8,
-              sliderInput(
-                "mesh.rank",
-                "Select Rank of MeSH",
-                min = 1,
-                max = 300,
-                value = c(1, 100)
-              )
-            ),
-            column(width = 4,
-                   numericInput('mesh.size', 'Size of Wordcloud', 1)),
-            shinydashboard::box(
-              width = 12,
-              wordcloud2Output('mesh.wordcloud', height = "325px") %>% withSpinner()
-            )
-            
-          ),
+        #tabsetPanel(
+          # tabPanel(
+          #   "MeSH Wordcloud",
+          #   column(
+          #     width = 8,
+          #     sliderInput(
+          #       "mesh.rank",
+          #       "Select Rank of MeSH",
+          #       min = 1,
+          #       max = 300,
+          #       value = c(1, 100)
+          #     )
+          #   ),
+          #   column(width = 4,
+          #          numericInput('mesh.size', 'Size of Wordcloud', 1)),
+          #   shinydashboard::box(
+          #     width = 12,
+          #     wordcloud2Output('mesh.wordcloud', height = "325px") %>% withSpinner()
+          #   )
+          #   
+          # ),
           tabPanel(
             "MeSH Trend",
             numericInput("mesh.rank2",
@@ -253,7 +253,7 @@ body <- dashboardBody(tabsetPanel(
             plotlyOutput("mesh.trend.plot") %>% withSpinner()
           )
         )
-      )
+    #  )
     ),
     
     fluidRow(
